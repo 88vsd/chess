@@ -1,4 +1,4 @@
-use crate::piece::Piece;
+use crate::piece::{Name, Piece};
 
 const COLS: usize = 8;
 const ROWS: usize = 8;
@@ -6,7 +6,7 @@ const AMOUNT: usize = 16;
 
 #[derive(Debug, Clone)]
 pub struct Board {
-    pub board: [[Option<Piece>; COLS]; ROWS],
+    pub squares: [[Option<Piece>; COLS]; ROWS],
 }
 
 impl Board {
@@ -17,9 +17,9 @@ impl Board {
         //let black_pieces: [Piece; AMOUNT] = Self::_initialize_black_pieces();
         // let white_pieces: [Piece; AMOUNT] = Self::_initialize_white_pieces();
 
-        let board = Self::_initialize(_black_pieces, _white_pieces);
+        let squares = Self::_initialize(_black_pieces, _white_pieces);
 
-        Board { board }
+        Board { squares }
     }
 
     pub fn display(
@@ -42,7 +42,7 @@ impl Board {
 
         for row in 0..ROWS {
             for col in 0..COLS {
-                let piece = self.board[row][col];
+                let piece = self.squares[row][col];
 
                 if col == last_col {
                     match piece {
@@ -102,7 +102,7 @@ impl Board {
         white_pieces: &[Piece; 16],
     ) -> [[Option<Piece>; COLS]; ROWS] {
         // Initialize the board with 64 None values as empty squares.
-        let mut board: [[Option<Piece>; COLS]; ROWS] = [
+        let mut squares: [[Option<Piece>; COLS]; ROWS] = [
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
@@ -118,8 +118,8 @@ impl Board {
             let row = usize::try_from(black_pieces[i].position.row).unwrap();
             let col = usize::try_from(black_pieces[i].position.col).unwrap();
 
-            board[row][col] = Some(black_pieces[i]);
-            println!("{:?}", &board[row][col]);
+            squares[row][col] = Some(black_pieces[i]);
+            println!("{:?}", &squares[row][col]);
         }
 
         // Loop through each white piece, retrieve its board positions and place it on the board.
@@ -127,17 +127,17 @@ impl Board {
             let row = usize::try_from(white_pieces[i].position.row).unwrap();
             let col = usize::try_from(white_pieces[i].position.col).unwrap();
 
-            board[row][col] = Some(white_pieces[i]);
-            println!("{:?}", &board[row][col]);
+            squares[row][col] = Some(white_pieces[i]);
+            println!("{:?}", &squares[row][col]);
         }
 
-        // Return the board with the pieces on it.
-        board
+        // Return the squares with the pieces on it.
+        squares
     }
 
     pub fn clean(&mut self) {
         // Initialize the board with 64 None values as empty squares.
-        self.board = [
+        self.squares = [
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
@@ -165,7 +165,7 @@ impl Board {
             let row = usize::try_from(pieces[i].position.row).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
             let col = usize::try_from(pieces[i].position.col).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
 
-            self.board[row][col] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `row` and `col`.
+            self.squares[row][col] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `row` and `col`.
         }
     }
 }
