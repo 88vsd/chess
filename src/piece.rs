@@ -1,5 +1,3 @@
-use std::fmt::Display;
-
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Color {
     BLACK,
@@ -30,24 +28,219 @@ pub struct Piece {
     pub position: Position,
 }
 
-pub trait PieceTrait {
-    fn new(
-        color: Color,
-        icon: &'static str,
-        name: Name,
-        position: Position,
-    ) -> Self;
-    //fn icon(&self) -> &'static str;
-    //fn color(&self) -> &'static Color;
-}
-
-impl PieceTrait for Piece {
-    fn new(
+impl Piece {
+    pub fn new(
         color: Color,
         icon: &'static str,
         name: Name,
         position: Position,
     ) -> Self {
         Piece { color, icon, name, position }
+    }
+
+    pub fn initialize_black_pieces() -> [Piece; 16] {
+        let pieces = [
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 0 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 1 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 2 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 3 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 4 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 5 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 6 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♟",
+                Name::PAWN,
+                Position { row: 1, col: 7 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♜",
+                Name::ROOK,
+                Position { row: 0, col: 0 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♞",
+                Name::KNIGHT,
+                Position { row: 0, col: 1 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♝",
+                Name::BISHOP,
+                Position { row: 0, col: 2 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♛",
+                Name::QUEEN,
+                Position { row: 0, col: 3 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♚",
+                Name::KING,
+                Position { row: 0, col: 4 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♝",
+                Name::BISHOP,
+                Position { row: 0, col: 5 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♞",
+                Name::KNIGHT,
+                Position { row: 0, col: 6 },
+            ),
+            Piece::new(
+                Color::BLACK,
+                "♜",
+                Name::ROOK,
+                Position { row: 0, col: 7 },
+            ),
+        ];
+
+        pieces
+    }
+
+    pub fn initialize_white_pieces() -> [Piece; 16] {
+        let pieces = [
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 0 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 1 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 2 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 3 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 4 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 5 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 6 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♙",
+                Name::PAWN,
+                Position { row: 6, col: 7 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♖",
+                Name::ROOK,
+                Position { row: 7, col: 0 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♘",
+                Name::KNIGHT,
+                Position { row: 7, col: 1 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♗",
+                Name::BISHOP,
+                Position { row: 7, col: 2 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♕",
+                Name::QUEEN,
+                Position { row: 7, col: 3 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♔",
+                Name::KING,
+                Position { row: 7, col: 4 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♗",
+                Name::BISHOP,
+                Position { row: 7, col: 5 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♘",
+                Name::KNIGHT,
+                Position { row: 7, col: 6 },
+            ),
+            Piece::new(
+                Color::WHITE,
+                "♖",
+                Name::ROOK,
+                Position { row: 7, col: 7 },
+            ),
+        ];
+
+        pieces
     }
 }
