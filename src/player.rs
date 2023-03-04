@@ -15,4 +15,11 @@ impl Player {
         _piece.position.row = _position.row;
         _piece.position.col = _position.col;
     }
+
+    // Use x notation: Pe4xPd5
+    fn capture() {}
+
+    // 0-0 if from the King side.
+    // 0-0-0 if from the Queen side.
+    fn castle() {}
 }
