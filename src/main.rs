@@ -1,6 +1,6 @@
 use crate::{
     board::Board,
-    piece::{Color, Piece, Position},
+    piece::{Color, Name, Piece, Position},
     player::Player,
 };
 
@@ -21,9 +21,14 @@ fn main() {
 
     board.display(&black_pieces, &white_pieces);
 
-    player_one.move_piece(&mut black_pieces[0], Position { row: 4, col: 4 });
+    player_one.move_piece(&mut black_pieces[8], Position { row: 3, col: 5 });
+    player_two.move_piece(&mut white_pieces[1], Position { row: 3, col: 4 });
 
     println!("{:?}", black_pieces[0].position);
+    board.update(&black_pieces, &white_pieces);
+
+    let rook_valid_moves = black_pieces[8].get_valid_moves(&board);
+    println!("{:?}", rook_valid_moves);
 
     board.update(&black_pieces, &white_pieces);
     board.display(&black_pieces, &white_pieces);

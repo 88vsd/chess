@@ -1,3 +1,5 @@
+use crate::board::Board;
+
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Color {
     BLACK,
@@ -16,8 +18,8 @@ pub enum Name {
 
 #[derive(Debug, Hash, Copy, Clone)]
 pub struct Position {
-    pub row: u8,
-    pub col: u8,
+    pub row: usize,
+    pub col: usize,
 }
 
 #[derive(Debug, Hash, Copy, Clone)]
@@ -36,6 +38,99 @@ impl Piece {
         position: Position,
     ) -> Self {
         Piece { color, icon, name, position }
+    }
+
+    pub fn get_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
+        match self.name {
+            Name::PAWN => return self._get_rook_valid_moves(_board),
+            Name::ROOK => return self._get_rook_valid_moves(_board),
+            Name::KNIGHT => return self._get_rook_valid_moves(_board),
+            Name::BISHOP => return self._get_rook_valid_moves(_board),
+            Name::QUEEN => return self._get_rook_valid_moves(_board),
+            Name::KING => return self._get_rook_valid_moves(_board),
+        }
+    }
+
+    fn _get_rook_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
+        let mut moves = Vec::new();
+
+        let current_row = self.position.row;
+        let current_col = self.position.col;
+
+        // UP
+        for row in (0..current_row).rev() {
+            println!("{}", row);
+            let piece = _board.squares[row][current_col];
+
+            if piece.is_none() {
+                moves.push(vec![row, current_col]);
+            }
+
+            if piece.is_some() {
+                if piece.unwrap().color != self.color {
+                    moves.push(vec![row, current_col]);
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // DOWN
+        for row in (current_row + 1)..8 {
+            let piece = _board.squares[row][current_col];
+
+            if piece.is_none() {
+                moves.push(vec![row, current_col]);
+            }
+
+            if piece.is_some() {
+                if piece.unwrap().color != self.color {
+                    moves.push(vec![row, current_col]);
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // LEFT
+        for col in (0..current_col).rev() {
+            let piece = _board.squares[current_row][col];
+
+            if piece.is_none() {
+                moves.push(vec![col, current_row]);
+            }
+
+            if piece.is_some() {
+                if piece.unwrap().color != self.color {
+                    moves.push(vec![current_row, col]);
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // RIGHT
+        for col in (current_col + 1)..8 {
+            let piece = _board.squares[current_row][col];
+
+            if piece.is_none() {
+                moves.push(vec![current_row, col]);
+            }
+
+            if piece.is_some() {
+                if piece.unwrap().color != self.color {
+                    moves.push(vec![current_row, col]);
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        moves
     }
 
     pub fn initialize_black_pieces() -> [Piece; 16] {
