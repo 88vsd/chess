@@ -1,5 +1,5 @@
 [package]
-name = "R_template-cargo"
+name = "chess"
 version = "0.1.0"
 edition = "2021"
 
