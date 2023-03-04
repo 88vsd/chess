@@ -1,4 +1,4 @@
-use crate::piece::{Color, Name, Piece, PieceTrait, Position};
+use crate::piece::Piece;
 
 const COLS: usize = 8;
 const ROWS: usize = 8;
@@ -10,17 +10,23 @@ pub struct Board {
 }
 
 impl Board {
-    pub fn new() -> Board {
-        let black_pieces: [Piece; AMOUNT] = Self::_initialize_black_pieces();
-        let white_pieces: [Piece; AMOUNT] = Self::_initialize_white_pieces();
+    pub fn new(
+        _black_pieces: &[Piece; 16],
+        _white_pieces: &[Piece; 16],
+    ) -> Self {
+        //let black_pieces: [Piece; AMOUNT] = Self::_initialize_black_pieces();
+        // let white_pieces: [Piece; AMOUNT] = Self::_initialize_white_pieces();
 
-        let board: [[Option<Piece>; COLS]; ROWS] =
-            Self::_initialize_board(black_pieces, white_pieces);
+        let board = Self::_initialize(_black_pieces, _white_pieces);
 
         Board { board }
     }
 
-    pub fn display(&self) {
+    pub fn display(
+        &self,
+        black_pieces: &[Piece; 16],
+        white_pieces: &[Piece; 16],
+    ) {
         let mut chess_notations_left =
             vec!["1", "2", "3", "4", "5", "6", "7", "8"];
         let mut chess_notations_right =
@@ -91,9 +97,9 @@ impl Board {
         println!("   a b c d e f g h");
     }
 
-    fn _initialize_board(
-        black_pieces: [Piece; AMOUNT],
-        white_pieces: [Piece; AMOUNT],
+    fn _initialize(
+        black_pieces: &[Piece; 16],
+        white_pieces: &[Piece; 16],
     ) -> [[Option<Piece>; COLS]; ROWS] {
         // Initialize the board with 64 None values as empty squares.
         let mut board: [[Option<Piece>; COLS]; ROWS] = [
@@ -129,209 +135,37 @@ impl Board {
         board
     }
 
-    fn _initialize_black_pieces() -> [Piece; 16] {
-        let pieces = [
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 0 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 1 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 2 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 3 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 4 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 5 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 6 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♟",
-                Name::PAWN,
-                Position { row: 1, col: 7 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♜",
-                Name::ROOK,
-                Position { row: 0, col: 0 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♞",
-                Name::KNIGHT,
-                Position { row: 0, col: 1 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♝",
-                Name::BISHOP,
-                Position { row: 0, col: 2 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♛",
-                Name::QUEEN,
-                Position { row: 0, col: 3 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♚",
-                Name::KING,
-                Position { row: 0, col: 4 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♝",
-                Name::BISHOP,
-                Position { row: 0, col: 5 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♞",
-                Name::KNIGHT,
-                Position { row: 0, col: 6 },
-            ),
-            Piece::new(
-                Color::BLACK,
-                "♜",
-                Name::ROOK,
-                Position { row: 0, col: 7 },
-            ),
+    pub fn clean(&mut self) {
+        // Initialize the board with 64 None values as empty squares.
+        self.board = [
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
         ];
-
-        pieces
     }
 
-    fn _initialize_white_pieces() -> [Piece; 16] {
-        let pieces = [
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 0 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 1 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 2 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 3 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 4 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 5 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 6 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♙",
-                Name::PAWN,
-                Position { row: 6, col: 7 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♖",
-                Name::ROOK,
-                Position { row: 7, col: 0 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♘",
-                Name::KNIGHT,
-                Position { row: 7, col: 1 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♗",
-                Name::BISHOP,
-                Position { row: 7, col: 2 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♕",
-                Name::QUEEN,
-                Position { row: 7, col: 3 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♔",
-                Name::KING,
-                Position { row: 7, col: 4 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♗",
-                Name::BISHOP,
-                Position { row: 7, col: 5 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♘",
-                Name::KNIGHT,
-                Position { row: 7, col: 6 },
-            ),
-            Piece::new(
-                Color::WHITE,
-                "♖",
-                Name::ROOK,
-                Position { row: 7, col: 7 },
-            ),
-        ];
+    pub fn update(
+        &mut self,
+        _black_pieces: &[Piece; AMOUNT],
+        _white_pieces: &[Piece; AMOUNT],
+    ) {
+        self.clean();
 
-        pieces
+        self.place(_black_pieces);
+        self.place(_white_pieces);
+    }
+
+    fn place(&mut self, pieces: &[Piece; 16]) {
+        for i in 0..pieces.len() {
+            let row = usize::try_from(pieces[i].position.row).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
+            let col = usize::try_from(pieces[i].position.col).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
+
+            self.board[row][col] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `row` and `col`.
+        }
     }
 }
