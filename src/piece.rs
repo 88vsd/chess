@@ -53,6 +53,14 @@ trait Pawn {
         _board: &Board,
         _moves: &mut Vec<Vec<usize>>,
     );
+    fn _get_piece(
+        &self,
+        _row: usize,
+        _col: usize,
+        _board: &Board,
+    ) -> Option<Piece>;
+    fn _is_black_pawn(&self) -> bool;
+    fn _is_white_pawn(&self) -> bool;
 }
 
 trait Rook {
@@ -73,7 +81,7 @@ impl Pawn for Piece {
         let is_undeveloped_black_pawn = _current_row == 1;
         let is_undeveloped_white_pawn = _current_row == 6;
 
-        if self.color == Color::BLACK {
+        if self._is_black_pawn() {
             if is_undeveloped_black_pawn {
                 if _current_row < 6 {
                     let piece = _board.squares[_current_row + 2][_current_col];
@@ -91,7 +99,7 @@ impl Pawn for Piece {
             }
         }
 
-        if self.color == Color::WHITE {
+        if self._is_white_pawn() {
             if is_undeveloped_white_pawn {
                 if _current_row > 1 {
                     let piece = _board.squares[_current_row - 2][_current_col];
@@ -123,7 +131,7 @@ impl Pawn for Piece {
         const LAST_ROW_FOR_BLACK_PAWN: usize = 7;
         const LAST_ROW_FOR_WHITE_PAWN: usize = 0;
 
-        if self.color == Color::BLACK {
+        if self._is_black_pawn() {
             if _current_row < LAST_ROW_FOR_BLACK_PAWN {
                 let piece = _board.squares[_current_row + 1][_current_col];
 
@@ -133,7 +141,7 @@ impl Pawn for Piece {
             }
         }
 
-        if self.color == Color::WHITE {
+        if self._is_white_pawn() {
             if _current_row > LAST_ROW_FOR_WHITE_PAWN {
                 let piece = _board.squares[_current_row - 1][_current_col];
 
@@ -153,12 +161,19 @@ impl Pawn for Piece {
     ) {
         let up = _current_row - 1;
         let down = _current_row + 1;
-        let left = _current_col - 1;
+        let left = if _current_col != 0 {
+            _current_col - 1
+        } else {
+            _current_col
+        }; // TODO: solve issue with underflow.
         let right = _current_col + 1;
 
-        if self.color == Color::BLACK {
+        let can_move_left = _current_col > 0;
+        let can_move_right = _current_col < 7;
+
+        if self._is_black_pawn() {
             // First we check for the down-right side.
-            if _current_col < 7 {
+            if can_move_right {
                 let piece = _board.squares[down][right];
 
                 if piece.is_some() {
@@ -169,7 +184,7 @@ impl Pawn for Piece {
             }
 
             // Then we check for the down-left side.
-            if _current_col > 0 {
+            if can_move_left {
                 let piece = _board.squares[down][left];
 
                 if piece.is_some() {
@@ -180,9 +195,9 @@ impl Pawn for Piece {
             }
         }
 
-        if self.color == Color::WHITE {
+        if self._is_white_pawn() {
             // First we check for the up-right side.
-            if _current_col < 7 {
+            if can_move_right {
                 let piece = _board.squares[up][right];
 
                 if piece.is_some() {
@@ -193,7 +208,7 @@ impl Pawn for Piece {
             }
 
             // Then we check for the up-left side.
-            if _current_col > 0 {
+            if can_move_right {
                 let piece = _board.squares[up][left];
 
                 if piece.is_some() {
@@ -206,7 +221,7 @@ impl Pawn for Piece {
     }
 
     fn _get_pawn_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
-        // Instantiate a vector of all valid moves that apply to this piece.
+        // Instantiate a vector of all valid moves that apply to the piece.
         let mut moves = Vec::new();
 
         // Define a current row index of the piece on the board.
@@ -220,6 +235,23 @@ impl Pawn for Piece {
         self._get_diagonal_moves(current_row, current_col, _board, &mut moves);
 
         moves
+    }
+
+    fn _get_piece(
+        &self,
+        _row: usize,
+        _col: usize,
+        _board: &Board,
+    ) -> Option<Piece> {
+        _board.squares[_row][_col]
+    }
+
+    fn _is_black_pawn(&self) -> bool {
+        self.color == Color::BLACK
+    }
+
+    fn _is_white_pawn(&self) -> bool {
+        self.color == Color::WHITE
     }
 }
 

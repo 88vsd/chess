@@ -1,6 +1,6 @@
 use crate::{
     board::Board,
-    piece::{Color, Name, Piece, Position},
+    piece::{Color, Piece, Position},
     player::Player,
 };
 
