@@ -410,7 +410,7 @@ impl Piece {
         match self.name {
             Name::PAWN => match self.color {
                 Color::BLACK => self.point.x == BLACK_PAWN_STARTING_POINT,
-                Color::WHITE => self.point.y == WHITE_PAWN_STARTING_POINT,
+                Color::WHITE => self.point.x == WHITE_PAWN_STARTING_POINT,
             },
             Name::BISHOP => todo!(),
             Name::KING => todo!(),
