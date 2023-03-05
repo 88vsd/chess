@@ -30,27 +30,200 @@ pub struct Piece {
     pub position: Position,
 }
 
-impl Piece {
-    pub fn new(
-        color: Color,
-        icon: &'static str,
-        name: Name,
-        position: Position,
-    ) -> Self {
-        Piece { color, icon, name, position }
-    }
+trait Pawn {
+    fn _get_pawn_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>>;
+    fn _get_diagonal_moves(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    );
+    fn _get_one_step_move(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    );
+    fn _get_two_step_move(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    );
+}
 
-    pub fn get_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
-        match self.name {
-            Name::PAWN => return self._get_rook_valid_moves(_board),
-            Name::ROOK => return self._get_rook_valid_moves(_board),
-            Name::KNIGHT => return self._get_rook_valid_moves(_board),
-            Name::BISHOP => return self._get_rook_valid_moves(_board),
-            Name::QUEEN => return self._get_rook_valid_moves(_board),
-            Name::KING => return self._get_rook_valid_moves(_board),
+trait Rook {
+    fn _get_rook_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>>;
+}
+
+impl Pawn for Piece {
+    fn _get_two_step_move(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    ) {
+        // Define whether a black pawn has been moved by the player. If so than disable the pawn two squares move.
+        // Define whether a white pawn has been moved by the player. If so than disable the pawn two squares move.
+
+        let is_undeveloped_black_pawn = _current_row == 1;
+        let is_undeveloped_white_pawn = _current_row == 6;
+
+        if self.color == Color::BLACK {
+            if is_undeveloped_black_pawn {
+                if _current_row < 6 {
+                    let piece = _board.squares[_current_row + 2][_current_col];
+
+                    if piece.is_none() {
+                        if _board.squares[_current_row + 1][_current_col]
+                            .is_none()
+                        {
+                            _moves.push(vec![_current_row + 2, _current_col]); // HERE
+                        }
+                    } else if piece.unwrap().color != self.color {
+                        _moves.push(vec![_current_row + 2, _current_col]); // HERE
+                    }
+                }
+            }
+        }
+
+        if self.color == Color::WHITE {
+            if is_undeveloped_white_pawn {
+                if _current_row > 1 {
+                    let piece = _board.squares[_current_row - 2][_current_col];
+
+                    if piece.is_none() {
+                        if _board.squares[_current_row - 1][_current_col]
+                            .is_none()
+                        {
+                            _moves.push(vec![_current_row - 2, _current_col]); //HERE
+                        }
+                    } else if piece.unwrap().color != self.color {
+                        _moves.push(vec![_current_row - 2, _current_col]); // HERE
+                    }
+                }
+            }
         }
     }
 
+    fn _get_one_step_move(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    ) {
+        // Define the last row index for black pawns in order to perform the "pawn promotion".
+        // Define the last row index for white pawns in order to perform the "pawn promotion".
+
+        const LAST_ROW_FOR_BLACK_PAWN: usize = 7;
+        const LAST_ROW_FOR_WHITE_PAWN: usize = 0;
+
+        if self.color == Color::BLACK {
+            if _current_row < LAST_ROW_FOR_BLACK_PAWN {
+                let piece = _board.squares[_current_row + 1][_current_col];
+
+                if piece.is_none() {
+                    _moves.push(vec![_current_row + 1, _current_col]); // HERE
+                }
+            }
+        }
+
+        if self.color == Color::WHITE {
+            if _current_row > LAST_ROW_FOR_WHITE_PAWN {
+                let piece = _board.squares[_current_row - 1][_current_col];
+
+                if piece.is_none() {
+                    _moves.push(vec![_current_row - 1, _current_col]); // HERE
+                }
+            }
+        }
+    }
+
+    fn _get_diagonal_moves(
+        &self,
+        _current_row: usize,
+        _current_col: usize,
+        _board: &Board,
+        _moves: &mut Vec<Vec<usize>>,
+    ) {
+        let up = _current_row - 1;
+        let down = _current_row + 1;
+        let left = _current_col - 1;
+        let right = _current_col + 1;
+
+        if self.color == Color::BLACK {
+            // First we check for the down-right side.
+            if _current_col < 7 {
+                let piece = _board.squares[down][right];
+
+                if piece.is_some() {
+                    if piece.unwrap().color != self.color {
+                        _moves.push(vec![down, right]); // HERE
+                    }
+                }
+            }
+
+            // Then we check for the down-left side.
+            if _current_col > 0 {
+                let piece = _board.squares[down][left];
+
+                if piece.is_some() {
+                    if piece.unwrap().color != self.color {
+                        _moves.push(vec![down, left]); // HERE
+                    }
+                }
+            }
+        }
+
+        if self.color == Color::WHITE {
+            // First we check for the up-right side.
+            if _current_col < 7 {
+                let piece = _board.squares[up][right];
+
+                if piece.is_some() {
+                    if piece.unwrap().color != self.color {
+                        _moves.push(vec![up, right]); // HERE
+                    }
+                }
+            }
+
+            // Then we check for the up-left side.
+            if _current_col > 0 {
+                let piece = _board.squares[up][left];
+
+                if piece.is_some() {
+                    if piece.unwrap().color != self.color {
+                        _moves.push(vec![up, left]); // HERE
+                    }
+                }
+            }
+        }
+    }
+
+    fn _get_pawn_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
+        // Instantiate a vector of all valid moves that apply to this piece.
+        let mut moves = Vec::new();
+
+        // Define a current row index of the piece on the board.
+        // Define a current column index of the piece on the board.
+
+        let current_row = self.position.row;
+        let current_col = self.position.col;
+
+        self._get_two_step_move(current_row, current_col, _board, &mut moves);
+        self._get_one_step_move(current_row, current_col, _board, &mut moves);
+        self._get_diagonal_moves(current_row, current_col, _board, &mut moves);
+
+        moves
+    }
+}
+
+impl Rook for Piece {
     fn _get_rook_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
         let mut moves = Vec::new();
 
@@ -131,6 +304,28 @@ impl Piece {
         }
 
         moves
+    }
+}
+
+impl Piece {
+    pub fn new(
+        color: Color,
+        icon: &'static str,
+        name: Name,
+        position: Position,
+    ) -> Self {
+        Piece { color, icon, name, position }
+    }
+
+    pub fn get_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
+        match self.name {
+            Name::PAWN => return self._get_pawn_valid_moves(_board),
+            Name::ROOK => return self._get_rook_valid_moves(_board),
+            Name::KNIGHT => return self._get_rook_valid_moves(_board),
+            Name::BISHOP => return self._get_rook_valid_moves(_board),
+            Name::QUEEN => return self._get_rook_valid_moves(_board),
+            Name::KING => return self._get_rook_valid_moves(_board),
+        }
     }
 
     pub fn initialize_black_pieces() -> [Piece; 16] {

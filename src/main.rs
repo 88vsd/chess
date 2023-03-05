@@ -21,14 +21,19 @@ fn main() {
 
     board.display(&black_pieces, &white_pieces);
 
-    player_one.move_piece(&mut black_pieces[8], Position { row: 3, col: 5 });
-    player_two.move_piece(&mut white_pieces[1], Position { row: 3, col: 4 });
+    //player_one.move_piece(&mut black_pieces[8], Position { row: 3, col: 5 });
+    player_one.move_piece(&mut black_pieces[0], Position { row: 5, col: 0 });
+    player_two.move_piece(&mut white_pieces[1], Position { row: 4, col: 1 });
 
-    println!("{:?}", black_pieces[0].position);
+    //println!("{:?}", black_pieces[0].position);
     board.update(&black_pieces, &white_pieces);
 
-    let rook_valid_moves = black_pieces[8].get_valid_moves(&board);
-    println!("{:?}", rook_valid_moves);
+    // let rook_valid_moves = black_pieces[8].get_valid_moves(&board);
+    // println!("{:?}", rook_valid_moves);
+    let pawn_2_valid_moves = white_pieces[1].get_valid_moves(&board);
+    let pawn_1_valid_moves = white_pieces[0].get_valid_moves(&board);
+    println!("{:?}", pawn_2_valid_moves);
+    println!("{:?}", pawn_1_valid_moves);
 
     board.update(&black_pieces, &white_pieces);
     board.display(&black_pieces, &white_pieces);
