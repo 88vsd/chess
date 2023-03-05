@@ -1,6 +1,6 @@
-# Cargo Template
+# Chess
 
-A cargo-based template for developing Rust programmes.
+This side project was born in order to understand Rust's basic programming concepts such as mutability, data types, ownership, generics and much more by creating the simple console application.
 
 ## Technology Stack & Tools
 
@@ -21,12 +21,6 @@ Please install or have installed the following:
   - You can test you've installed it right by running `rustc --version`
 - [Just](https://github.com/casey/just#packages)
   - You can check if you have it by running `just --version`
-  
-### Use Template
-
-Click the [`Use this template`](https://github.com/88vsd/template-cargo/generate) button at the top of the page to create a new repository with this repo as the initial state.
-
-If this is your first time with Cargo, check out the [installation](https://www.rust-lang.org/tools/install) instructions.
 
 ### Quickstart
 
