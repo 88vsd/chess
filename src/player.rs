@@ -1,19 +1,19 @@
-use crate::piece::{Color, Piece, Position};
+use crate::piece::{Color, Piece, Point};
 
 #[derive(Debug, Clone)]
 pub struct Player {
     pub name: &'static str,
-    pub pieces_color: Color,
+    pub pieces_yor: Color,
 }
 
 impl Player {
-    pub fn new(_name: &'static str, _pieces_color: Color) -> Player {
-        Player { name: _name, pieces_color: _pieces_color }
+    pub fn new(_name: &'static str, _pieces_yor: Color) -> Player {
+        Player { name: _name, pieces_yor: _pieces_yor }
     }
 
-    pub fn move_piece(self, _piece: &mut Piece, _position: Position) {
-        _piece.position.row = _position.row;
-        _piece.position.col = _position.col;
+    pub fn move_piece(self, _piece: &mut Piece, _point: Point) {
+        _piece.point.x = _point.x;
+        _piece.point.y = _point.y;
     }
 
     // Use x notation: Pe4xPd5

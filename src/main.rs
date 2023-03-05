@@ -1,6 +1,6 @@
 use crate::{
     board::Board,
-    piece::{Color, Piece, Position},
+    piece::{Color, Piece, Point},
     player::Player,
 };
 
@@ -22,8 +22,8 @@ fn main() {
     board.display(&black_pieces, &white_pieces);
 
     //player_one.move_piece(&mut black_pieces[8], Position { row: 3, col: 5 });
-    player_one.move_piece(&mut black_pieces[0], Position { row: 5, col: 0 });
-    player_two.move_piece(&mut white_pieces[1], Position { row: 4, col: 1 });
+    player_one.move_piece(&mut black_pieces[0], Point { x: 5, y: 0 });
+    player_two.move_piece(&mut white_pieces[1], Point { x: 4, y: 1 });
 
     //println!("{:?}", black_pieces[0].position);
     board.update(&black_pieces, &white_pieces);

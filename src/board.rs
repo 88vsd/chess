@@ -32,22 +32,22 @@ impl Board {
         let mut chess_notations_right =
             vec!["1", "2", "3", "4", "5", "6", "7", "8"];
 
-        let first_col = 0;
-        let last_col = 7;
+        let first_y = 0;
+        let last_y = 7;
 
         print!("\n\n\n");
 
         println!("   a b c d e f g h");
         println!();
 
-        for row in 0..ROWS {
-            for col in 0..COLS {
-                let piece = self.squares[row][col];
+        for x in 0..ROWS {
+            for y in 0..COLS {
+                let piece = self.squares[x][y];
 
-                if col == last_col {
+                if y == last_y {
                     match piece {
                         Some(value) => {
-                            // Print a row number and the last `|`. After that a piece icon on the opposite side.
+                            // Print a x number and the last `|`. After that a piece icon on the opposite side.
                             println!(
                                 "{}| {}",
                                 value.icon,
@@ -55,18 +55,18 @@ impl Board {
                             );
                         }
                         None => println!(
-                            // Print a space and the last `|` and after an empty square on the opposite side followed by a row number.
+                            // Print a space and the last `|` and after an empty square on the opposite side followed by a x number.
                             " | {}",
                             chess_notations_right.pop().unwrap()
                         ),
                     }
                 }
 
-                if col != last_col {
+                if y != last_y {
                     match piece {
                         Some(value) => {
-                            if col == first_col {
-                                // Print a row number and the `|` on the opposite side.
+                            if y == first_y {
+                                // Print a x number and the `|` on the opposite side.
                                 print!(
                                     "{} |",
                                     chess_notations_left.pop().unwrap()
@@ -77,8 +77,8 @@ impl Board {
                             print!("{}|", value.icon)
                         }
                         None => {
-                            if col == first_col {
-                                // Print a row number and on the `|` on the opposite side.
+                            if y == first_y {
+                                // Print a x number and on the `|` on the opposite side.
                                 print!(
                                     "{} |",
                                     chess_notations_left.pop().unwrap()
@@ -113,22 +113,22 @@ impl Board {
             [None, None, None, None, None, None, None, None],
         ];
 
-        // Loop through each black piece, retrieve its board positions and place it on the board.
+        // Loop through each black piece, retrieve its board points and place it on the board.
         for i in 0..black_pieces.len() {
-            let row = usize::try_from(black_pieces[i].position.row).unwrap();
-            let col = usize::try_from(black_pieces[i].position.col).unwrap();
+            let x = usize::try_from(black_pieces[i].point.x).unwrap();
+            let y = usize::try_from(black_pieces[i].point.y).unwrap();
 
-            squares[row][col] = Some(black_pieces[i]);
-            println!("{:?}", &squares[row][col]);
+            squares[x][y] = Some(black_pieces[i]);
+            println!("{:?}", &squares[x][y]);
         }
 
-        // Loop through each white piece, retrieve its board positions and place it on the board.
+        // Loop through each white piece, retrieve its board points and place it on the board.
         for i in 0..white_pieces.len() {
-            let row = usize::try_from(white_pieces[i].position.row).unwrap();
-            let col = usize::try_from(white_pieces[i].position.col).unwrap();
+            let x = usize::try_from(white_pieces[i].point.x).unwrap();
+            let y = usize::try_from(white_pieces[i].point.y).unwrap();
 
-            squares[row][col] = Some(white_pieces[i]);
-            println!("{:?}", &squares[row][col]);
+            squares[x][y] = Some(white_pieces[i]);
+            println!("{:?}", &squares[x][y]);
         }
 
         // Return the squares with the pieces on it.
@@ -162,10 +162,10 @@ impl Board {
 
     fn place(&mut self, pieces: &[Piece; 16]) {
         for i in 0..pieces.len() {
-            let row = usize::try_from(pieces[i].position.row).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
-            let col = usize::try_from(pieces[i].position.col).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
+            let x = usize::try_from(pieces[i].point.x).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
+            let y = usize::try_from(pieces[i].point.y).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
 
-            self.squares[row][col] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `row` and `col`.
+            self.squares[x][y] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `x` and `y`.
         }
     }
 }
