@@ -1,8 +1,26 @@
-use crate::piece::{Name, Piece};
+use crate::piece::Piece;
 
-const COLS: usize = 8;
-const ROWS: usize = 8;
-const AMOUNT: usize = 16;
+pub const COLS: usize = 8;
+pub const ROWS: usize = 8;
+pub const AMOUNT: usize = 16;
+
+pub const ROW_1: usize = 7;
+pub const ROW_2: usize = 6;
+pub const ROW_3: usize = 5;
+pub const ROW_4: usize = 4;
+pub const ROW_5: usize = 3;
+pub const ROW_6: usize = 2;
+pub const ROW_7: usize = 1;
+pub const ROW_8: usize = 0;
+
+pub const COLUMN_A: usize = 0;
+pub const COLUMN_B: usize = 1;
+pub const COLUMN_C: usize = 2;
+pub const COLUMN_D: usize = 3;
+pub const COLUMN_E: usize = 4;
+pub const COLUMN_F: usize = 5;
+pub const COLUMN_G: usize = 6;
+pub const COLUMN_H: usize = 7;
 
 #[derive(Debug, Clone)]
 pub struct Board {
@@ -160,7 +178,7 @@ impl Board {
         self.place(_white_pieces);
     }
 
-    fn place(&mut self, pieces: &[Piece; 16]) {
+    fn place(&mut self, pieces: &[Piece; AMOUNT]) {
         for i in 0..pieces.len() {
             let x = usize::try_from(pieces[i].point.x).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
             let y = usize::try_from(pieces[i].point.y).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
