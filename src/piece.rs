@@ -1,4 +1,8 @@
-use crate::board::Board;
+use crate::board::{
+    Board, COLUMNS_TOTAL_AMOUNT, COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D,
+    COLUMN_E, COLUMN_F, COLUMN_G, COLUMN_H, ROWS_TOTAL_AMOUNT, ROW_1, ROW_2,
+    ROW_7, ROW_8,
+};
 
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Color {
@@ -29,327 +33,48 @@ impl Point {
         Point { x: _x, y: _y }
     }
 
-    pub fn down(&self) -> Point {
-        Point { x: self.x + 1, y: self.y }
+    pub fn down(&self, _n: usize) -> Point {
+        Point { x: self.x + _n, y: self.y }
     }
 
-    pub fn up(&self) -> Point {
-        Point { x: self.x - 1, y: self.y }
+    pub fn up(&self, _n: usize) -> Point {
+        Point { x: self.x - _n, y: self.y }
     }
 
-    pub fn left(&self) -> Point {
-        Point { x: self.x, y: self.y - 1 }
+    pub fn left(&self, _n: usize) -> Point {
+        //Point { x: self.x, y: self.y - 1 } // TODO: this is the correct one.
+        Point { x: self.x, y: self.y - _n } // TODO: delete it later.
     }
 
-    pub fn right(&self) -> Point {
-        Point { x: self.x, y: self.y + 1 }
+    pub fn right(&self, _n: usize) -> Point {
+        Point { x: self.x, y: self.y + _n }
     }
 
-    pub fn up_left(&self) -> Point {
-        Point { x: self.x - 1, y: self.y - 1 } // TODO: solve problem with usize underflow.
+    pub fn up_left(&self, _n: usize) -> Point {
+        // Point { x: self.x - _n, y: self.y - _n } // TODO: solve problem with usize underflow.
+        Point { x: self.x - _n, y: self.y - _n } // TODO: solve problem with usize underflow.
     }
 
-    pub fn up_right(&self) -> Point {
-        Point { x: self.x - 1, y: self.y + 1 }
+    pub fn up_right(&self, _n: usize) -> Point {
+        Point { x: self.x - _n, y: self.y + _n }
     }
 
-    pub fn down_left(&self) -> Point {
-        Point { x: self.x + 1, y: self.y - 1 }
+    pub fn down_left(&self, _n: usize) -> Point {
+        Point { x: self.x + _n, y: self.y - _n }
     }
 
-    pub fn down_right(&self) -> Point {
-        Point { x: self.x + 1, y: self.y + 1 }
+    pub fn down_right(&self, _n: usize) -> Point {
+        Point { x: self.x + _n, y: self.y + _n }
     }
 }
 
-#[derive(Debug, Hash, Copy, Clone)]
+#[derive(Debug, Hash, Clone)]
 pub struct Piece {
     pub color: Color,
     pub icon: &'static str,
     pub name: Name,
     pub point: Point,
-}
-
-trait Pawn {
-    fn _get_pawn_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>>;
-    fn _get_diagonal_moves(&self, _board: &Board, _moves: &mut Vec<Vec<usize>>);
-    fn _get_one_step_move(
-        &self,
-        _current_x: usize,
-        _current_y: usize,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    );
-    fn _get_two_step_move(
-        &self,
-        _current_x: usize,
-        _current_y: usize,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    );
-    fn _add_move_if_peace_is_none_at(
-        &self,
-        _point: Point,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    );
-    fn _add_move_if_piece_has_opposite_color_at(
-        &self,
-        _point: Point,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    );
-}
-
-trait Rook {
-    fn _get_rook_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>>;
-}
-
-impl Pawn for Piece {
-    fn _get_two_step_move(
-        &self,
-        _current_x: usize,
-        _current_y: usize,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    ) {
-        if self.is_black() {
-            // Define whether a black pawn has been moved by the player. If so than disable the pawn two squares move.
-            // Define whether a white pawn has been moved by the player. If so than disable the pawn two squares move.
-            if self.is_undeveloped() {
-                if _current_x < 6 {
-                    let piece = _board.squares[_current_x + 2][_current_y];
-
-                    if piece.is_none() {
-                        if _board.squares[_current_x + 1][_current_y].is_none()
-                        {
-                            _moves.push(vec![_current_x + 2, _current_y]); // HERE
-                        }
-                    } else if piece.unwrap().color != self.color {
-                        _moves.push(vec![_current_x + 2, _current_y]); // HERE
-                    }
-                }
-            }
-        }
-
-        if self.is_white() {
-            // Define whether a black pawn has been moved by the player. If so than disable the pawn two squares move.
-            // Define whether a white pawn has been moved by the player. If so than disable the pawn two squares move.
-            if self.is_undeveloped() {
-                if _current_x > 1 {
-                    let piece = _board.squares[_current_x - 2][_current_y];
-
-                    if piece.is_none() {
-                        if _board.squares[_current_x - 1][_current_y].is_none()
-                        {
-                            _moves.push(vec![_current_x - 2, _current_y]); //HERE
-                        }
-                    } else if piece.unwrap().color != self.color {
-                        _moves.push(vec![_current_x - 2, _current_y]); // HERE
-                    }
-                }
-            }
-        }
-    }
-
-    fn _get_one_step_move(
-        &self,
-        _current_x: usize,
-        _current_y: usize,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    ) {
-        if self.is_black() {
-            if !self.is_on_row_1() {
-                self._add_move_if_peace_is_none_at(
-                    self.point.down(),
-                    _board,
-                    _moves,
-                );
-            }
-        }
-
-        if self.is_white() {
-            if !self.is_on_row_8() {
-                self._add_move_if_peace_is_none_at(
-                    self.point.up(),
-                    _board,
-                    _moves,
-                );
-            }
-        }
-    }
-
-    fn _get_diagonal_moves(
-        &self,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    ) {
-        if self.is_black() {
-            if self.can_move_right() {
-                self._add_move_if_piece_has_opposite_color_at(
-                    self.point.down_right(),
-                    _board,
-                    _moves,
-                );
-            }
-
-            if self.can_move_left() {
-                self._add_move_if_piece_has_opposite_color_at(
-                    self.point.down_left(),
-                    _board,
-                    _moves,
-                );
-            }
-        }
-
-        if self.is_white() {
-            if self.can_move_right() {
-                self._add_move_if_piece_has_opposite_color_at(
-                    self.point.up_right(),
-                    _board,
-                    _moves,
-                );
-            }
-
-            if self.can_move_right() {
-                self._add_move_if_piece_has_opposite_color_at(
-                    self.point.up_left(),
-                    _board,
-                    _moves,
-                );
-            }
-        }
-    }
-
-    fn _get_pawn_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
-        // Instantiate a vector of all valid moves that apply to the piece.
-        let mut moves = Vec::new();
-
-        // Define a current x index of the piece on the board.
-        // Define a current yumn index of the piece on the board.
-
-        let current_x = self.point.x;
-        let current_y = self.point.y;
-
-        self._get_two_step_move(current_x, current_y, _board, &mut moves);
-        self._get_one_step_move(current_x, current_y, _board, &mut moves);
-        self._get_diagonal_moves(_board, &mut moves);
-
-        moves
-    }
-
-    fn _add_move_if_piece_has_opposite_color_at(
-        &self,
-        _point: Point,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    ) {
-        let piece = Piece::get(_point, _board);
-
-        if piece.is_some() {
-            if piece.unwrap().color != self.color {
-                _moves.push(vec![_point.x, _point.y]); // HERE
-            }
-        }
-    }
-
-    fn _add_move_if_peace_is_none_at(
-        &self,
-        _point: Point,
-        _board: &Board,
-        _moves: &mut Vec<Vec<usize>>,
-    ) {
-        let piece = Piece::get(_point, _board);
-
-        if piece.is_none() {
-            _moves.push(vec![_point.x, _point.y]); // HERE
-        }
-    }
-}
-
-impl Rook for Piece {
-    fn _get_rook_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
-        let mut moves = Vec::new();
-
-        let current_x = self.point.x;
-        let current_y = self.point.y;
-
-        // UP
-        for x in (0..current_x).rev() {
-            println!("{}", x);
-            let piece = _board.squares[x][current_y];
-
-            if piece.is_none() {
-                moves.push(vec![x, current_y]);
-            }
-
-            if piece.is_some() {
-                if piece.unwrap().color != self.color {
-                    moves.push(vec![x, current_y]);
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // DOWN
-        for x in (current_x + 1)..8 {
-            let piece = _board.squares[x][current_y];
-
-            if piece.is_none() {
-                moves.push(vec![x, current_y]);
-            }
-
-            if piece.is_some() {
-                if piece.unwrap().color != self.color {
-                    moves.push(vec![x, current_y]);
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // LEFT
-        for y in (0..current_y).rev() {
-            let piece = _board.squares[current_x][y];
-
-            if piece.is_none() {
-                moves.push(vec![y, current_x]);
-            }
-
-            if piece.is_some() {
-                if piece.unwrap().color != self.color {
-                    moves.push(vec![current_x, y]);
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // RIGHT
-        for y in (current_y + 1)..8 {
-            let piece = _board.squares[current_x][y];
-
-            if piece.is_none() {
-                moves.push(vec![current_x, y]);
-            }
-
-            if piece.is_some() {
-                if piece.unwrap().color != self.color {
-                    moves.push(vec![current_x, y]);
-                    break;
-                } else {
-                    break;
-                }
-            }
-        }
-
-        moves
-    }
+    pub allowable_moves: Vec<Point>,
 }
 
 impl Piece {
@@ -359,22 +84,62 @@ impl Piece {
         name: Name,
         point: Point,
     ) -> Self {
-        Piece { color, icon, name, point }
+        Piece {
+            color,
+            icon,
+            name,
+            point,
+            allowable_moves: Vec::new(),
+        }
     }
 
-    pub fn get_valid_moves(&self, _board: &Board) -> Vec<Vec<usize>> {
+    pub fn moves(&mut self, _board: &Board) -> &Vec<Point> {
         match self.name {
-            Name::PAWN => return self._get_pawn_valid_moves(_board),
-            Name::ROOK => return self._get_rook_valid_moves(_board),
-            Name::KNIGHT => return self._get_rook_valid_moves(_board),
-            Name::BISHOP => return self._get_rook_valid_moves(_board),
-            Name::QUEEN => return self._get_rook_valid_moves(_board),
-            Name::KING => return self._get_rook_valid_moves(_board),
+            Name::PAWN => self._get_pawn_valid_moves(_board),
+            Name::BISHOP => self._get_bishop_valid_moves(_board),
+            Name::KING => self._get_king_valid_moves(_board),
+            Name::KNIGHT => todo!(),
+            Name::QUEEN => self._get_queen_valid_moves(_board),
+            Name::ROOK => self._get_rook_valid_moves(_board),
         }
     }
 
     pub fn get(_point: Point, _board: &Board) -> Option<Piece> {
-        _board.squares[_point.x][_point.y]
+        _board.squares[_point.x][_point.y].clone()
+    }
+
+    pub fn is_at(_point: Point, _board: &Board) -> bool {
+        let piece = Piece::get(_point, _board);
+
+        if piece.is_some() {
+            true
+        } else {
+            false
+        }
+    }
+
+    pub fn is_piece(&self, _point: Point, _board: &Board) -> bool {
+        Piece::get(_point, _board).is_some()
+    }
+
+    pub fn is_opponent(self: &Piece, _point: Point, _board: &Board) -> bool {
+        let piece = Piece::get(_point, _board);
+
+        if piece.is_some() {
+            piece.unwrap().color != self.color
+        } else {
+            false
+        }
+    }
+
+    pub fn is_personal(_self: &Piece, _point: Point, _board: &Board) -> bool {
+        let piece = Piece::get(_point, _board);
+
+        if piece.is_some() {
+            piece.unwrap().color == _self.color
+        } else {
+            false
+        }
     }
 
     pub fn is_black(&self) -> bool {
@@ -385,27 +150,82 @@ impl Piece {
         self.color == Color::WHITE
     }
 
-    pub fn can_move_left(&self) -> bool {
-        self.point.y > 0
+    pub fn is_pawn(&self) -> bool {
+        self.name == Name::PAWN
     }
 
-    pub fn can_move_right(&self) -> bool {
-        self.point.y < 7
+    pub fn is_king(&self) -> bool {
+        self.name == Name::KING
+    }
+
+    pub fn can_move_up(&self) -> bool {
+        self.point.x > ROW_8
+    }
+
+    pub fn can_move_up_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x >= _step
+            && !Piece::is_personal(self, self.point.up(_step), _board)
+    }
+
+    pub fn can_move_down_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x + _step <= ROW_1
+            && !Piece::is_personal(self, self.point.down(_step), _board)
+    }
+
+    pub fn can_move_left_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.y >= _step
+            && !Piece::is_personal(self, self.point.left(_step), _board)
+    }
+
+    pub fn can_move_right_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.y + _step <= COLUMN_H
+            && !Piece::is_personal(self, self.point.right(_step), _board)
+    }
+
+    pub fn can_move_up_right_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x >= _step
+            && self.point.y + _step <= COLUMN_H
+            && !Piece::is_personal(self, self.point.up_right(_step), _board)
+    }
+
+    pub fn can_move_up_left_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x >= _step
+            && self.point.y >= _step
+            && !Piece::is_personal(self, self.point.up_left(_step), _board)
+    }
+
+    pub fn can_move_down_right_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x + _step <= ROW_1
+            && self.point.y + _step <= COLUMN_H
+            && !Piece::is_personal(self, self.point.down_right(_step), _board)
+    }
+
+    pub fn can_move_down_left_by(&self, _step: usize, _board: &Board) -> bool {
+        self.point.x + _step <= ROW_1
+            && self.point.y >= _step
+            && !Piece::is_personal(self, self.point.down_left(_step), _board)
+    }
+
+    pub fn is_on_column_a(&self) -> bool {
+        self.point.y == COLUMN_A
+    }
+
+    pub fn is_on_column_h(&self) -> bool {
+        self.point.y == COLUMN_H
     }
 
     pub fn is_on_row_1(&self) -> bool {
-        //self.point.x < 7 // TODO: try using ==
-        self.point.x == 7
+        self.point.x == ROW_1
     }
 
     pub fn is_on_row_8(&self) -> bool {
         // self.point.x > 0 // TODO: try using ==
-        self.point.x == 0 // TODO: try using ==
+        self.point.x == ROW_8 // TODO: try using ==
     }
 
     pub fn is_undeveloped(&self) -> bool {
-        const BLACK_PAWN_STARTING_POINT: usize = 1;
-        const WHITE_PAWN_STARTING_POINT: usize = 6;
+        const BLACK_PAWN_STARTING_POINT: usize = ROW_7;
+        const WHITE_PAWN_STARTING_POINT: usize = ROW_2;
 
         match self.name {
             Name::PAWN => match self.color {
@@ -420,49 +240,306 @@ impl Piece {
         }
     }
 
+    #[rustfmt::skip]
     pub fn initialize_black_pieces() -> [Piece; 16] {
         let pieces = [
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 0 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 1 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 2 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 3 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 4 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 5 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 6 }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: 1, y: 7 }),
-            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: 0, y: 0 }),
-            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: 0, y: 1 }),
-            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: 0, y: 2 }),
-            Piece::new(Color::BLACK, "♛", Name::QUEEN, Point { x: 0, y: 3 }),
-            Piece::new(Color::BLACK, "♚", Name::KING, Point { x: 0, y: 4 }),
-            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: 0, y: 5 }),
-            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: 0, y: 6 }),
-            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: 0, y: 7 }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_A }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_B }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_C }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_D }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_E }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_F }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_G }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_H }),
+            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: ROW_8, y: COLUMN_A }),
+            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: ROW_8, y: COLUMN_B }),
+            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: ROW_8, y: COLUMN_C }),
+            Piece::new(Color::BLACK, "♛", Name::QUEEN, Point { x: ROW_8, y: COLUMN_D }),
+            Piece::new(Color::BLACK, "♚", Name::KING, Point { x: ROW_8, y: COLUMN_E }),
+            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: ROW_8, y: COLUMN_F }),
+            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: ROW_8, y: COLUMN_G }),
+            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: ROW_8, y: COLUMN_H }),
         ];
 
         pieces
     }
 
+    #[rustfmt::skip]
     pub fn initialize_white_pieces() -> [Piece; 16] {
         let pieces = [
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 0 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 1 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 2 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 3 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 4 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 5 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 6 }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: 6, y: 7 }),
-            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: 7, y: 0 }),
-            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: 7, y: 1 }),
-            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: 7, y: 2 }),
-            Piece::new(Color::WHITE, "♕", Name::QUEEN, Point { x: 7, y: 3 }),
-            Piece::new(Color::WHITE, "♔", Name::KING, Point { x: 7, y: 4 }),
-            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: 7, y: 5 }),
-            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: 7, y: 6 }),
-            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: 7, y: 7 }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_A }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_B }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_C }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_D }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_E }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_F }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_G }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_H }),
+            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: ROW_1, y: COLUMN_A }),
+            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: ROW_1, y: COLUMN_B }),
+            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: ROW_1, y: COLUMN_C }),
+            Piece::new(Color::WHITE, "♕", Name::QUEEN, Point { x: ROW_1, y: COLUMN_D }),
+            Piece::new(Color::WHITE, "♔", Name::KING, Point { x: ROW_1, y: COLUMN_E }),
+            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: ROW_1, y: COLUMN_F }),
+            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: ROW_1, y: COLUMN_G }),
+            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: ROW_1, y: COLUMN_H }),
         ];
 
         pieces
+    }
+
+    fn _add_capture_move(&mut self, _point: Point, _board: &Board) -> bool {
+        let piece = Piece::get(_point, _board);
+
+        if piece.is_some() {
+            if piece.unwrap().color != self.color {
+                self._add_allowable_move(_point);
+
+                return true;
+            } else {
+                // Returns true if the piece belongs to the same color.
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    fn _add_allowable_move(&mut self, _point: Point) {
+        self.allowable_moves.push(_point);
+    }
+
+    fn _add_occupy_move(&mut self, _point: Point, _board: &Board) {
+        let piece = Piece::get(_point, _board);
+
+        if piece.is_none() {
+            self._add_allowable_move(_point);
+        }
+    }
+
+    fn _add_move(&mut self, _point: Point, _board: &Board) -> bool {
+        if !Piece::is_at(_point, _board) {
+            self._add_occupy_move(_point, _board);
+
+            // Return true to stop iteration as king can go only 1 step.
+            if self.is_king() {
+                return true;
+            }
+
+            return false;
+        } else {
+            if Piece::is_personal(self, _point, _board) {
+                return true;
+            }
+
+            if Piece::is_opponent(self, _point, _board) {
+                self._add_capture_move(_point, _board);
+
+                return true;
+            }
+        }
+
+        panic!("Not able to validate move.");
+    }
+
+    fn _add_up_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_up_by(steps, _board) {
+            let point = self.point.up(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_down_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_down_by(steps, _board) {
+            let point = self.point.down(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_left_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_left_by(steps, _board) {
+            let point = self.point.left(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_right_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_right_by(steps, _board) {
+            let point = self.point.right(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_up_right_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_up_right_by(steps, _board) {
+            let point = self.point.up_right(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_up_left_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_up_left_by(steps, _board) {
+            let point = self.point.up_left(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_down_right_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_down_right_by(steps, _board) {
+            let point = self.point.down_right(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _add_down_left_moves(&mut self, _board: &Board) {
+        let mut steps = 1;
+
+        while self.can_move_down_left_by(steps, _board) {
+            let point = self.point.down_left(steps);
+
+            if self._add_move(point, _board) {
+                break;
+            }
+
+            steps += 1;
+        }
+    }
+
+    fn _get_rook_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        self._add_up_moves(_board);
+        self._add_down_moves(_board);
+        self._add_left_moves(_board);
+        self._add_right_moves(_board);
+
+        &self.allowable_moves
+    }
+
+    fn _get_bishop_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        self._add_up_right_moves(_board);
+        self._add_up_left_moves(_board);
+        self._add_down_right_moves(_board);
+        self._add_down_left_moves(_board);
+
+        &self.allowable_moves
+    }
+
+    fn _get_queen_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        self._add_up_moves(_board);
+        self._add_down_moves(_board);
+        self._add_left_moves(_board);
+        self._add_right_moves(_board);
+
+        self._add_up_right_moves(_board);
+        self._add_up_left_moves(_board);
+        self._add_down_right_moves(_board);
+        self._add_down_left_moves(_board);
+
+        &self.allowable_moves
+    }
+
+    fn _get_king_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        self._add_up_moves(_board);
+        self._add_down_moves(_board);
+        self._add_left_moves(_board);
+        self._add_right_moves(_board);
+
+        self._add_up_right_moves(_board);
+        self._add_up_left_moves(_board);
+        self._add_down_right_moves(_board);
+        self._add_down_left_moves(_board);
+
+        &self.allowable_moves
+    }
+
+    fn _get_pawn_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        if self.is_black() {
+            if self.can_move_down_left_by(1, _board) {
+                self._add_capture_move(self.point.down_left(1), _board);
+            }
+
+            if self.can_move_down_right_by(1, _board) {
+                self._add_capture_move(self.point.down_right(1), _board);
+            }
+
+            if !Piece::is_at(self.point.down(1), _board) {
+                self._add_occupy_move(self.point.down(1), _board);
+            }
+
+            if self.is_undeveloped()
+                && !Piece::is_at(self.point.down(2), _board)
+            {
+                self._add_occupy_move(self.point.down(2), _board);
+            }
+        }
+
+        if self.is_white() {
+            if self.can_move_up_left_by(1, _board) {
+                self._add_capture_move(self.point.up_left(1), _board);
+            }
+
+            if self.can_move_up_right_by(1, _board) {
+                self._add_capture_move(self.point.up_right(1), _board);
+            }
+
+            if !Piece::is_at(self.point.up(1), _board) {
+                self._add_occupy_move(self.point.up(1), _board);
+            }
+
+            if self.is_undeveloped() && !Piece::is_at(self.point.up(2), _board)
+            {
+                self._add_occupy_move(self.point.up(2), _board);
+            }
+        }
+
+        &self.allowable_moves
     }
 }
