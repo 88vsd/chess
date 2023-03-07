@@ -1,6 +1,6 @@
 use crate::piece::{Color, Piece, Point};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct Player {
     pub name: &'static str,
     pub pieces_yor: Color,
