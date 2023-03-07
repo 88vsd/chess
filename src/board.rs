@@ -1,4 +1,4 @@
-use crate::piece::Piece;
+use crate::piece::{Piece, Point};
 
 pub const COLS: usize = 8;
 pub const ROWS: usize = 8;
@@ -12,6 +12,9 @@ pub const ROW_5: usize = 3;
 pub const ROW_6: usize = 2;
 pub const ROW_7: usize = 1;
 pub const ROW_8: usize = 0;
+
+pub const ROWS_TOTAL_AMOUNT: usize = 8;
+pub const COLUMNS_TOTAL_AMOUNT: usize = 8;
 
 pub const COLUMN_A: usize = 0;
 pub const COLUMN_B: usize = 1;
@@ -60,53 +63,87 @@ impl Board {
 
         for x in 0..ROWS {
             for y in 0..COLS {
-                let piece = self.squares[x][y];
+                // let piece = Piece::get(Point { x, y }, self);
+                //self.squares[x][y];
 
                 if y == last_y {
-                    match piece {
-                        Some(value) => {
-                            // Print a x number and the last `|`. After that a piece icon on the opposite side.
-                            println!(
-                                "{}| {}",
-                                value.icon,
-                                chess_notations_right.pop().unwrap()
-                            );
-                        }
-                        None => println!(
+                    if Piece::get(Point { x, y }, self).is_some() {
+                        println!(
+                            "{}| {}",
+                            Piece::get(Point { x, y }, self).unwrap().icon,
+                            chess_notations_right.pop().unwrap()
+                        );
+                    } else {
+                        println!(
                             // Print a space and the last `|` and after an empty square on the opposite side followed by a x number.
                             " | {}",
                             chess_notations_right.pop().unwrap()
-                        ),
+                        );
                     }
+                    // match piece {
+                    //     Some(value) => {
+                    //         // Print a x number and the last `|`. After that a piece icon on the opposite side.
+                    //         println!(
+                    //             "{}| {}",
+                    //             value.icon,
+                    //             chess_notations_right.pop().unwrap()
+                    //         );
+                    //     }
+                    //     None => println!(
+                    //         // Print a space and the last `|` and after an empty square on the opposite side followed by a x number.
+                    //         " | {}",
+                    //         chess_notations_right.pop().unwrap()
+                    //     ),
+                    // }
                 }
 
                 if y != last_y {
-                    match piece {
-                        Some(value) => {
-                            if y == first_y {
-                                // Print a x number and the `|` on the opposite side.
-                                print!(
-                                    "{} |",
-                                    chess_notations_left.pop().unwrap()
-                                );
-                            }
-
-                            // Print a piece icon followed by the `|`.
-                            print!("{}|", value.icon)
+                    if Piece::get(Point { x, y }, self).is_some() {
+                        if y == first_y {
+                            // Print a x number and the `|` on the opposite side.
+                            print!("{} |", chess_notations_left.pop().unwrap());
                         }
-                        None => {
-                            if y == first_y {
-                                // Print a x number and on the `|` on the opposite side.
-                                print!(
-                                    "{} |",
-                                    chess_notations_left.pop().unwrap()
-                                );
-                            };
 
-                            // Print a space followed by the `|`.
-                            print!(" |")
-                        }
+                        // Print a piece icon followed by the `|`.
+                        print!(
+                            "{}|",
+                            Piece::get(Point { x, y }, self).unwrap().icon
+                        )
+                    } else {
+                        if y == first_y {
+                            // Print a x number and on the `|` on the opposite side.
+                            print!("{} |", chess_notations_left.pop().unwrap());
+                        };
+
+                        // Print a space followed by the `|`.
+                        print!(" |")
                     }
+                    // match piece.is_some() {
+                    //     Some(_) => {
+                    //         if y == first_y {
+                    //             // Print a x number and the `|` on the opposite side.
+                    //             print!(
+                    //                 "{} |",
+                    //                 chess_notations_left.pop().unwrap()
+                    //             );
+                    //         }
+
+                    //         // Print a piece icon followed by the `|`.
+                    //         // print!("{}|", value.icon)
+                    //     }
+                    //     None => {
+                    //         if y == first_y {
+                    //             // Print a x number and on the `|` on the opposite side.
+                    //             print!(
+                    //                 "{} |",
+                    //                 chess_notations_left.pop().unwrap()
+                    //             );
+                    //         };
+
+                    //         // Print a space followed by the `|`.
+                    //         print!(" |")
+                    //     }
+                    // }
                 }
             }
         }
@@ -136,7 +173,7 @@ impl Board {
             let x = usize::try_from(black_pieces[i].point.x).unwrap();
             let y = usize::try_from(black_pieces[i].point.y).unwrap();
 
-            squares[x][y] = Some(black_pieces[i]);
+            squares[x][y] = Some(black_pieces[i].clone());
             println!("{:?}", &squares[x][y]);
         }
 
@@ -145,7 +182,7 @@ impl Board {
             let x = usize::try_from(white_pieces[i].point.x).unwrap();
             let y = usize::try_from(white_pieces[i].point.y).unwrap();
 
-            squares[x][y] = Some(white_pieces[i]);
+            squares[x][y] = Some(white_pieces[i].clone());
             println!("{:?}", &squares[x][y]);
         }
 
@@ -183,7 +220,7 @@ impl Board {
             let x = usize::try_from(pieces[i].point.x).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
             let y = usize::try_from(pieces[i].point.y).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
 
-            self.squares[x][y] = Some(pieces[i]); // As array indexes do not support integers we pass usize values in the form of a `x` and `y`.
+            self.squares[x][y] = Some(pieces[i].clone()); // As array indexes do not support integers we pass usize values in the form of a `x` and `y`.
         }
     }
 }
