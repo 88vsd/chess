@@ -66,6 +66,38 @@ impl Point {
     pub fn down_right(&self, _n: usize) -> Point {
         Point { x: self.x + _n, y: self.y + _n }
     }
+
+    pub fn up_up_left(&self) -> Point {
+        Point { x: self.x - 2, y: self.y - 1 }
+    }
+
+    pub fn up_up_right(&self) -> Point {
+        Point { x: self.x - 2, y: self.y + 1 }
+    }
+
+    pub fn down_down_left(&self) -> Point {
+        Point { x: self.x + 2, y: self.y - 1 }
+    }
+
+    pub fn down_down_right(&self) -> Point {
+        Point { x: self.x + 2, y: self.y + 1 }
+    }
+
+    pub fn up_left_left(&self) -> Point {
+        Point { x: self.x - 1, y: self.y - 2 }
+    }
+
+    pub fn up_right_right(&self) -> Point {
+        Point { x: self.x - 1, y: self.y + 2 }
+    }
+
+    pub fn down_left_left(&self) -> Point {
+        Point { x: self.x + 1, y: self.y - 2 }
+    }
+
+    pub fn down_right_right(&self) -> Point {
+        Point { x: self.x + 1, y: self.y + 2 }
+    }
 }
 
 #[derive(Debug, Hash, Clone)]
@@ -98,7 +130,7 @@ impl Piece {
             Name::PAWN => self._get_pawn_valid_moves(_board),
             Name::BISHOP => self._get_bishop_valid_moves(_board),
             Name::KING => self._get_king_valid_moves(_board),
-            Name::KNIGHT => todo!(),
+            Name::KNIGHT => self._get_knight_valid_moves(_board),
             Name::QUEEN => self._get_queen_valid_moves(_board),
             Name::ROOK => self._get_rook_valid_moves(_board),
         }
@@ -204,6 +236,54 @@ impl Piece {
         self.point.x + _step <= ROW_1
             && self.point.y >= _step
             && !Piece::is_personal(self, self.point.down_left(_step), _board)
+    }
+
+    pub fn can_move_up_up_left(&self, _board: &Board) -> bool {
+        self.point.x >= 2
+            && self.point.y >= 1
+            && !Piece::is_personal(self, self.point.up_up_left(), _board)
+    }
+
+    pub fn can_move_up_up_right(&self, _board: &Board) -> bool {
+        self.point.x >= 2
+            && self.point.y + 1 <= COLUMN_H
+            && !Piece::is_personal(self, self.point.up_up_right(), _board)
+    }
+
+    pub fn can_move_down_down_left(&self, _board: &Board) -> bool {
+        self.point.x + 2 <= ROW_1
+            && self.point.y >= 1
+            && !Piece::is_personal(self, self.point.down_down_left(), _board)
+    }
+
+    pub fn can_move_down_down_right(&self, _board: &Board) -> bool {
+        self.point.x + 2 <= ROW_1
+            && self.point.y + 1 <= COLUMN_H
+            && !Piece::is_personal(self, self.point.down_down_right(), _board)
+    }
+
+    pub fn can_move_up_left_left(&self, _board: &Board) -> bool {
+        self.point.x >= 1
+            && self.point.y >= 2
+            && !Piece::is_personal(self, self.point.up_left_left(), _board)
+    }
+
+    pub fn can_move_up_right_right(&self, _board: &Board) -> bool {
+        self.point.x >= 1
+            && self.point.y + 2 <= COLUMN_H
+            && !Piece::is_personal(self, self.point.up_right_right(), _board)
+    }
+
+    pub fn can_move_down_left_left(&self, _board: &Board) -> bool {
+        self.point.x + 1 <= ROW_1
+            && self.point.y >= 2
+            && !Piece::is_personal(self, self.point.down_left_left(), _board)
+    }
+
+    pub fn can_move_down_right_right(&self, _board: &Board) -> bool {
+        self.point.x + 1 <= ROW_1
+            && self.point.y + 2 <= COLUMN_H
+            && !Piece::is_personal(self, self.point.down_right_right(), _board)
     }
 
     pub fn is_on_column_a(&self) -> bool {
@@ -538,6 +618,62 @@ impl Piece {
             {
                 self._add_occupy_move(self.point.up(2), _board);
             }
+        }
+
+        &self.allowable_moves
+    }
+
+    fn _get_knight_valid_moves(&mut self, _board: &Board) -> &Vec<Point> {
+        // -.
+        //  |
+        //  |
+        if self.can_move_up_up_left(_board) {
+            self._add_move(self.point.up_up_left(), _board);
+        }
+
+        //  .-
+        //  |
+        //  |
+        if self.can_move_up_up_right(_board) {
+            self._add_move(self.point.up_up_right(), _board);
+        }
+
+        //  |
+        //  |
+        // -.
+        if self.can_move_down_down_left(_board) {
+            self._add_move(self.point.down_down_left(), _board);
+        }
+
+        //  |
+        //  |
+        //  .-
+        if self.can_move_down_down_right(_board) {
+            self._add_move(self.point.down_down_right(), _board);
+        }
+
+        //  ------.
+        //        |
+        if self.can_move_up_left_left(_board) {
+            self._add_move(self.point.up_left_left(), _board);
+        }
+
+        //  .------
+        //  |
+        if self.can_move_up_right_right(_board) {
+            self._add_move(self.point.up_right_right(), _board);
+        }
+
+        //       |
+        // ------.
+        if self.can_move_down_left_left(_board) {
+            self._add_move(self.point.down_left_left(), _board);
+        }
+
+        // |
+        // .------
+        if self.can_move_down_right_right(_board) {
+            self._add_move(self.point.down_right_right(), _board);
         }
 
         &self.allowable_moves

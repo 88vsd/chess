@@ -30,6 +30,7 @@ fn main() {
     // player_two.move_piece(&mut white_pieces[12], Point { x: 7, y: 0 });
     // player_one.move_piece(&mut black_pieces[1], Point { x: 3, y: 1 });
     // player_two.move_piece(&mut white_pieces[1], Point { x: 4, y: 1 });
+    player_two.move_piece(&mut white_pieces[9], Point { x: 4, y: 3 });
 
     // println!("{:?}", black_pieces[0].position);
     board.update(&black_pieces, &white_pieces);
@@ -44,10 +45,11 @@ fn main() {
     // println!("{:?}", queen_valid_moves);
     // println!("{:?}", king_valid_moves);
     // let pawn_2_valid_moves = white_pieces[1].moves(&board); //get_valid_moves(&board);
-    let pawn_1_valid_moves = black_pieces[0].moves(&board);
+    // let pawn_1_valid_moves = black_pieces[0].moves(&board);
     // println!("{:?}", pawn_2_valid_moves);
     // println!("{:?}", pawn_1_valid_moves);
-    println!("{:?}", white_pieces[5].moves(&board));
+    // println!("{:?}", white_pieces[5].moves(&board));
+    println!("{:?}", white_pieces[9].moves(&board));
     // println!("{:?}", black_pieces[1].moves(&board));
 
     // board.update(&black_pieces, &white_pieces);
