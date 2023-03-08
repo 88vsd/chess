@@ -1,7 +1,9 @@
 use crate::board::{
-    Board, COLUMNS_TOTAL_AMOUNT, COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D,
-    COLUMN_E, COLUMN_F, COLUMN_G, COLUMN_H, ROWS_TOTAL_AMOUNT, ROW_1, ROW_2,
-    ROW_7, ROW_8,
+    Board, A1, A2, A7, A8, B1, B2, B7, B8, C1, C2, C7, C8,
+    COLUMNS_TOTAL_AMOUNT, COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D, COLUMN_E,
+    COLUMN_F, COLUMN_G, COLUMN_H, D1, D2, D7, D8, E1, E2, E7, E8, F1, F2, F7,
+    F8, G1, G2, G7, G8, H1, H2, H7, H8, ROWS_TOTAL_AMOUNT, ROW_1, ROW_2, ROW_7,
+    ROW_8,
 };
 
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
@@ -42,8 +44,7 @@ impl Point {
     }
 
     pub fn left(&self, _n: usize) -> Point {
-        //Point { x: self.x, y: self.y - 1 } // TODO: this is the correct one.
-        Point { x: self.x, y: self.y - _n } // TODO: delete it later.
+        Point { x: self.x, y: self.y - _n }
     }
 
     pub fn right(&self, _n: usize) -> Point {
@@ -51,8 +52,7 @@ impl Point {
     }
 
     pub fn up_left(&self, _n: usize) -> Point {
-        // Point { x: self.x - _n, y: self.y - _n } // TODO: solve problem with usize underflow.
-        Point { x: self.x - _n, y: self.y - _n } // TODO: solve problem with usize underflow.
+        Point { x: self.x - _n, y: self.y - _n }
     }
 
     pub fn up_right(&self, _n: usize) -> Point {
@@ -104,6 +104,7 @@ impl Point {
 pub struct Piece {
     pub color: Color,
     pub icon: &'static str,
+    // pub is_developed: bool,
     pub name: Name,
     pub point: Point,
     pub allowable_moves: Vec<Point>,
@@ -320,49 +321,47 @@ impl Piece {
         }
     }
 
-    #[rustfmt::skip]
     pub fn initialize_black_pieces() -> [Piece; 16] {
         let pieces = [
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_A }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_B }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_C }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_D }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_E }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_F }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_G }),
-            Piece::new(Color::BLACK, "♟", Name::PAWN, Point { x: ROW_7, y: COLUMN_H }),
-            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: ROW_8, y: COLUMN_A }),
-            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: ROW_8, y: COLUMN_B }),
-            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: ROW_8, y: COLUMN_C }),
-            Piece::new(Color::BLACK, "♛", Name::QUEEN, Point { x: ROW_8, y: COLUMN_D }),
-            Piece::new(Color::BLACK, "♚", Name::KING, Point { x: ROW_8, y: COLUMN_E }),
-            Piece::new(Color::BLACK, "♝", Name::BISHOP, Point { x: ROW_8, y: COLUMN_F }),
-            Piece::new(Color::BLACK, "♞", Name::KNIGHT, Point { x: ROW_8, y: COLUMN_G }),
-            Piece::new(Color::BLACK, "♜", Name::ROOK, Point { x: ROW_8, y: COLUMN_H }),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, A7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, B7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, C7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, D7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, E7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, F7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, G7),
+            Piece::new(Color::BLACK, "♟", Name::PAWN, H7),
+            Piece::new(Color::BLACK, "♜", Name::ROOK, A8),
+            Piece::new(Color::BLACK, "♞", Name::KNIGHT, B8),
+            Piece::new(Color::BLACK, "♝", Name::BISHOP, C8),
+            Piece::new(Color::BLACK, "♛", Name::QUEEN, D8),
+            Piece::new(Color::BLACK, "♚", Name::KING, E8),
+            Piece::new(Color::BLACK, "♝", Name::BISHOP, F8),
+            Piece::new(Color::BLACK, "♞", Name::KNIGHT, G8),
+            Piece::new(Color::BLACK, "♜", Name::ROOK, H8),
         ];
 
         pieces
     }
 
-    #[rustfmt::skip]
     pub fn initialize_white_pieces() -> [Piece; 16] {
         let pieces = [
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_A }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_B }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_C }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_D }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_E }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_F }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_G }),
-            Piece::new(Color::WHITE, "♙", Name::PAWN, Point { x: ROW_2, y: COLUMN_H }),
-            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: ROW_1, y: COLUMN_A }),
-            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: ROW_1, y: COLUMN_B }),
-            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: ROW_1, y: COLUMN_C }),
-            Piece::new(Color::WHITE, "♕", Name::QUEEN, Point { x: ROW_1, y: COLUMN_D }),
-            Piece::new(Color::WHITE, "♔", Name::KING, Point { x: ROW_1, y: COLUMN_E }),
-            Piece::new(Color::WHITE, "♗", Name::BISHOP, Point { x: ROW_1, y: COLUMN_F }),
-            Piece::new(Color::WHITE, "♘", Name::KNIGHT, Point { x: ROW_1, y: COLUMN_G }),
-            Piece::new(Color::WHITE, "♖", Name::ROOK, Point { x: ROW_1, y: COLUMN_H }),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, A2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, B2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, C2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, D2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, E2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, F2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, G2),
+            Piece::new(Color::WHITE, "♙", Name::PAWN, H2),
+            Piece::new(Color::WHITE, "♖", Name::ROOK, A1),
+            Piece::new(Color::WHITE, "♘", Name::KNIGHT, B1),
+            Piece::new(Color::WHITE, "♗", Name::BISHOP, C1),
+            Piece::new(Color::WHITE, "♕", Name::QUEEN, D1),
+            Piece::new(Color::WHITE, "♔", Name::KING, E1),
+            Piece::new(Color::WHITE, "♗", Name::BISHOP, F1),
+            Piece::new(Color::WHITE, "♘", Name::KNIGHT, G1),
+            Piece::new(Color::WHITE, "♖", Name::ROOK, H1),
         ];
 
         pieces

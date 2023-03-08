@@ -25,9 +25,47 @@ pub const COLUMN_F: usize = 5;
 pub const COLUMN_G: usize = 6;
 pub const COLUMN_H: usize = 7;
 
+// Row 1
+pub const A1: Point = Point { x: ROW_1, y: COLUMN_A };
+pub const B1: Point = Point { x: ROW_1, y: COLUMN_B };
+pub const C1: Point = Point { x: ROW_1, y: COLUMN_C };
+pub const D1: Point = Point { x: ROW_1, y: COLUMN_D };
+pub const E1: Point = Point { x: ROW_1, y: COLUMN_E };
+pub const F1: Point = Point { x: ROW_1, y: COLUMN_F };
+pub const G1: Point = Point { x: ROW_1, y: COLUMN_G };
+pub const H1: Point = Point { x: ROW_1, y: COLUMN_H };
+// Row 2
+pub const A2: Point = Point { x: ROW_2, y: COLUMN_A };
+pub const B2: Point = Point { x: ROW_2, y: COLUMN_B };
+pub const C2: Point = Point { x: ROW_2, y: COLUMN_C };
+pub const D2: Point = Point { x: ROW_2, y: COLUMN_D };
+pub const E2: Point = Point { x: ROW_2, y: COLUMN_E };
+pub const F2: Point = Point { x: ROW_2, y: COLUMN_F };
+pub const G2: Point = Point { x: ROW_2, y: COLUMN_G };
+pub const H2: Point = Point { x: ROW_2, y: COLUMN_H };
+// Row 7
+pub const A7: Point = Point { x: ROW_7, y: COLUMN_A };
+pub const B7: Point = Point { x: ROW_7, y: COLUMN_B };
+pub const C7: Point = Point { x: ROW_7, y: COLUMN_C };
+pub const D7: Point = Point { x: ROW_7, y: COLUMN_D };
+pub const E7: Point = Point { x: ROW_7, y: COLUMN_E };
+pub const F7: Point = Point { x: ROW_7, y: COLUMN_F };
+pub const G7: Point = Point { x: ROW_7, y: COLUMN_G };
+pub const H7: Point = Point { x: ROW_7, y: COLUMN_H };
+// Row 8
+pub const A8: Point = Point { x: ROW_8, y: COLUMN_A };
+pub const B8: Point = Point { x: ROW_8, y: COLUMN_B };
+pub const C8: Point = Point { x: ROW_8, y: COLUMN_C };
+pub const D8: Point = Point { x: ROW_8, y: COLUMN_D };
+pub const E8: Point = Point { x: ROW_8, y: COLUMN_E };
+pub const F8: Point = Point { x: ROW_8, y: COLUMN_F };
+pub const G8: Point = Point { x: ROW_8, y: COLUMN_G };
+pub const H8: Point = Point { x: ROW_8, y: COLUMN_H };
+
 #[derive(Debug, Clone)]
 pub struct Board {
     pub squares: [[Option<Piece>; COLS]; ROWS],
+    // pub pieces: [Piece; 32],
 }
 
 impl Board {

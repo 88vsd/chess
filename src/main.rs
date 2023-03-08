@@ -1,6 +1,6 @@
 use crate::{
     board::Board,
-    piece::{Color, Piece, Point},
+    piece::{Color, Name, Piece, Point},
     player::Player,
 };
 
@@ -8,6 +8,12 @@ pub mod board;
 pub mod piece;
 pub mod player;
 
+// Implement:
+// Capturing
+// Pawn promotion
+// Castling
+// Check
+// Checkmate
 fn main() {
     println!("Hello, world!");
 
