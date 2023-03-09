@@ -1,264 +1,126 @@
-use crate::piece::{Piece, Point};
-
-pub const COLS: usize = 8;
-pub const ROWS: usize = 8;
-pub const AMOUNT: usize = 16;
-
-pub const ROW_1: usize = 7;
-pub const ROW_2: usize = 6;
-pub const ROW_3: usize = 5;
-pub const ROW_4: usize = 4;
-pub const ROW_5: usize = 3;
-pub const ROW_6: usize = 2;
-pub const ROW_7: usize = 1;
-pub const ROW_8: usize = 0;
-
-pub const ROWS_TOTAL_AMOUNT: usize = 8;
-pub const COLUMNS_TOTAL_AMOUNT: usize = 8;
-
-pub const COLUMN_A: usize = 0;
-pub const COLUMN_B: usize = 1;
-pub const COLUMN_C: usize = 2;
-pub const COLUMN_D: usize = 3;
-pub const COLUMN_E: usize = 4;
-pub const COLUMN_F: usize = 5;
-pub const COLUMN_G: usize = 6;
-pub const COLUMN_H: usize = 7;
-
-// Row 1
-pub const A1: Point = Point { x: ROW_1, y: COLUMN_A };
-pub const B1: Point = Point { x: ROW_1, y: COLUMN_B };
-pub const C1: Point = Point { x: ROW_1, y: COLUMN_C };
-pub const D1: Point = Point { x: ROW_1, y: COLUMN_D };
-pub const E1: Point = Point { x: ROW_1, y: COLUMN_E };
-pub const F1: Point = Point { x: ROW_1, y: COLUMN_F };
-pub const G1: Point = Point { x: ROW_1, y: COLUMN_G };
-pub const H1: Point = Point { x: ROW_1, y: COLUMN_H };
-// Row 2
-pub const A2: Point = Point { x: ROW_2, y: COLUMN_A };
-pub const B2: Point = Point { x: ROW_2, y: COLUMN_B };
-pub const C2: Point = Point { x: ROW_2, y: COLUMN_C };
-pub const D2: Point = Point { x: ROW_2, y: COLUMN_D };
-pub const E2: Point = Point { x: ROW_2, y: COLUMN_E };
-pub const F2: Point = Point { x: ROW_2, y: COLUMN_F };
-pub const G2: Point = Point { x: ROW_2, y: COLUMN_G };
-pub const H2: Point = Point { x: ROW_2, y: COLUMN_H };
-// Row 7
-pub const A7: Point = Point { x: ROW_7, y: COLUMN_A };
-pub const B7: Point = Point { x: ROW_7, y: COLUMN_B };
-pub const C7: Point = Point { x: ROW_7, y: COLUMN_C };
-pub const D7: Point = Point { x: ROW_7, y: COLUMN_D };
-pub const E7: Point = Point { x: ROW_7, y: COLUMN_E };
-pub const F7: Point = Point { x: ROW_7, y: COLUMN_F };
-pub const G7: Point = Point { x: ROW_7, y: COLUMN_G };
-pub const H7: Point = Point { x: ROW_7, y: COLUMN_H };
-// Row 8
-pub const A8: Point = Point { x: ROW_8, y: COLUMN_A };
-pub const B8: Point = Point { x: ROW_8, y: COLUMN_B };
-pub const C8: Point = Point { x: ROW_8, y: COLUMN_C };
-pub const D8: Point = Point { x: ROW_8, y: COLUMN_D };
-pub const E8: Point = Point { x: ROW_8, y: COLUMN_E };
-pub const F8: Point = Point { x: ROW_8, y: COLUMN_F };
-pub const G8: Point = Point { x: ROW_8, y: COLUMN_G };
-pub const H8: Point = Point { x: ROW_8, y: COLUMN_H };
+use crate::{
+    constants::{
+        A1, A2, A3, A4, A5, A6, A7, A8, B1, B2, B3, B4, B5, B6, B7, B8, C1, C2,
+        C3, C4, C5, C6, C7, C8, D1, D2, D3, D4, D5, D6, D7, D8, E1, E2, E3, E4,
+        E5, E6, E7, E8, F1, F2, F3, F4, F5, F6, F7, F8, G1, G2, G3, G4, G5, G6,
+        G7, G8, H1, H2, H3, H4, H5, H6, H7, H8,
+    },
+    piece::{Piece, Point},
+};
 
 #[derive(Debug, Clone)]
-pub struct Board {
-    pub squares: [[Option<Piece>; COLS]; ROWS],
-    // pub pieces: [Piece; 32],
-}
+pub struct Board;
 
 impl Board {
-    pub fn new(
-        _black_pieces: &[Piece; 16],
-        _white_pieces: &[Piece; 16],
-    ) -> Self {
-        //let black_pieces: [Piece; AMOUNT] = Self::_initialize_black_pieces();
-        // let white_pieces: [Piece; AMOUNT] = Self::_initialize_white_pieces();
-
-        let squares = Self::_initialize(_black_pieces, _white_pieces);
-
-        Board { squares }
+    pub fn new(_pieces: &[Option<Piece>; 32]) -> Self {
+        Board
     }
 
-    pub fn display(
-        &self,
-        black_pieces: &[Piece; 16],
-        white_pieces: &[Piece; 16],
-    ) {
-        let mut chess_notations_left =
-            vec!["1", "2", "3", "4", "5", "6", "7", "8"];
-        let mut chess_notations_right =
-            vec!["1", "2", "3", "4", "5", "6", "7", "8"];
+    pub fn display(&self, _pieces: &[Option<Piece>; 32]) {
+        println!(
+            r#"
+           a b c d e f g h
 
-        let first_y = 0;
-        let last_y = 7;
+        8 |{}|{}|{}|{}|{}|{}|{}|{}| 8
+        7 |{}|{}|{}|{}|{}|{}|{}|{}| 7
+        6 |{}|{}|{}|{}|{}|{}|{}|{}| 6
+        5 |{}|{}|{}|{}|{}|{}|{}|{}| 5
+        4 |{}|{}|{}|{}|{}|{}|{}|{}| 4
+        3 |{}|{}|{}|{}|{}|{}|{}|{}| 3
+        2 |{}|{}|{}|{}|{}|{}|{}|{}| 2
+        1 |{}|{}|{}|{}|{}|{}|{}|{}| 1
 
-        print!("\n\n\n");
+           a b c d e f g h
+    "#,
+            // Row 8
+            self._get_icon(_pieces, A8),
+            self._get_icon(_pieces, B8),
+            self._get_icon(_pieces, C8),
+            self._get_icon(_pieces, D8),
+            self._get_icon(_pieces, E8),
+            self._get_icon(_pieces, F8),
+            self._get_icon(_pieces, G8),
+            self._get_icon(_pieces, H8),
+            // Row 7
+            self._get_icon(_pieces, A7),
+            self._get_icon(_pieces, B7),
+            self._get_icon(_pieces, C7),
+            self._get_icon(_pieces, D7),
+            self._get_icon(_pieces, E7),
+            self._get_icon(_pieces, F7),
+            self._get_icon(_pieces, G7),
+            self._get_icon(_pieces, H7),
+            // Row 6
+            self._get_icon(_pieces, A6),
+            self._get_icon(_pieces, B6),
+            self._get_icon(_pieces, C6),
+            self._get_icon(_pieces, D6),
+            self._get_icon(_pieces, E6),
+            self._get_icon(_pieces, F6),
+            self._get_icon(_pieces, G6),
+            self._get_icon(_pieces, H6),
+            // Row 5
+            self._get_icon(_pieces, A5),
+            self._get_icon(_pieces, B5),
+            self._get_icon(_pieces, C5),
+            self._get_icon(_pieces, D5),
+            self._get_icon(_pieces, E5),
+            self._get_icon(_pieces, F5),
+            self._get_icon(_pieces, G5),
+            self._get_icon(_pieces, H5),
+            // Row 4
+            self._get_icon(_pieces, A4),
+            self._get_icon(_pieces, B4),
+            self._get_icon(_pieces, C4),
+            self._get_icon(_pieces, D4),
+            self._get_icon(_pieces, E4),
+            self._get_icon(_pieces, F4),
+            self._get_icon(_pieces, G4),
+            self._get_icon(_pieces, H4),
+            // Row 3
+            self._get_icon(_pieces, A3),
+            self._get_icon(_pieces, B3),
+            self._get_icon(_pieces, C3),
+            self._get_icon(_pieces, D3),
+            self._get_icon(_pieces, E3),
+            self._get_icon(_pieces, F3),
+            self._get_icon(_pieces, G3),
+            self._get_icon(_pieces, H3),
+            // Row 2
+            self._get_icon(_pieces, A2),
+            self._get_icon(_pieces, B2),
+            self._get_icon(_pieces, C2),
+            self._get_icon(_pieces, D2),
+            self._get_icon(_pieces, E2),
+            self._get_icon(_pieces, F2),
+            self._get_icon(_pieces, G2),
+            self._get_icon(_pieces, H2),
+            // Row 1
+            self._get_icon(_pieces, A1),
+            self._get_icon(_pieces, B1),
+            self._get_icon(_pieces, C1),
+            self._get_icon(_pieces, D1),
+            self._get_icon(_pieces, E1),
+            self._get_icon(_pieces, F1),
+            self._get_icon(_pieces, G1),
+            self._get_icon(_pieces, H1),
+        );
+    }
 
-        println!("   a b c d e f g h");
-        println!();
-
-        for x in 0..ROWS {
-            for y in 0..COLS {
-                // let piece = Piece::get(Point { x, y }, self);
-                //self.squares[x][y];
-
-                if y == last_y {
-                    if Piece::get(Point { x, y }, self).is_some() {
-                        println!(
-                            "{}| {}",
-                            Piece::get(Point { x, y }, self).unwrap().icon,
-                            chess_notations_right.pop().unwrap()
-                        );
+    fn _get_icon(&self, _pieces: &[Option<Piece>; 32], _point: Point) -> &str {
+        _pieces
+            .iter()
+            .find_map(|piece| {
+                if let Some(p) = piece {
+                    if p.point == _point {
+                        Some(p.icon)
                     } else {
-                        println!(
-                            // Print a space and the last `|` and after an empty square on the opposite side followed by a x number.
-                            " | {}",
-                            chess_notations_right.pop().unwrap()
-                        );
+                        None
                     }
-                    // match piece {
-                    //     Some(value) => {
-                    //         // Print a x number and the last `|`. After that a piece icon on the opposite side.
-                    //         println!(
-                    //             "{}| {}",
-                    //             value.icon,
-                    //             chess_notations_right.pop().unwrap()
-                    //         );
-                    //     }
-                    //     None => println!(
-                    //         // Print a space and the last `|` and after an empty square on the opposite side followed by a x number.
-                    //         " | {}",
-                    //         chess_notations_right.pop().unwrap()
-                    //     ),
-                    // }
+                } else {
+                    Some(" ")
                 }
-
-                if y != last_y {
-                    if Piece::get(Point { x, y }, self).is_some() {
-                        if y == first_y {
-                            // Print a x number and the `|` on the opposite side.
-                            print!("{} |", chess_notations_left.pop().unwrap());
-                        }
-
-                        // Print a piece icon followed by the `|`.
-                        print!(
-                            "{}|",
-                            Piece::get(Point { x, y }, self).unwrap().icon
-                        )
-                    } else {
-                        if y == first_y {
-                            // Print a x number and on the `|` on the opposite side.
-                            print!("{} |", chess_notations_left.pop().unwrap());
-                        };
-
-                        // Print a space followed by the `|`.
-                        print!(" |")
-                    }
-                    // match piece.is_some() {
-                    //     Some(_) => {
-                    //         if y == first_y {
-                    //             // Print a x number and the `|` on the opposite side.
-                    //             print!(
-                    //                 "{} |",
-                    //                 chess_notations_left.pop().unwrap()
-                    //             );
-                    //         }
-
-                    //         // Print a piece icon followed by the `|`.
-                    //         // print!("{}|", value.icon)
-                    //     }
-                    //     None => {
-                    //         if y == first_y {
-                    //             // Print a x number and on the `|` on the opposite side.
-                    //             print!(
-                    //                 "{} |",
-                    //                 chess_notations_left.pop().unwrap()
-                    //             );
-                    //         };
-
-                    //         // Print a space followed by the `|`.
-                    //         print!(" |")
-                    //     }
-                    // }
-                }
-            }
-        }
-
-        println!();
-        println!("   a b c d e f g h");
-    }
-
-    fn _initialize(
-        black_pieces: &[Piece; 16],
-        white_pieces: &[Piece; 16],
-    ) -> [[Option<Piece>; COLS]; ROWS] {
-        // Initialize the board with 64 None values as empty squares.
-        let mut squares: [[Option<Piece>; COLS]; ROWS] = [
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-        ];
-
-        // Loop through each black piece, retrieve its board points and place it on the board.
-        for i in 0..black_pieces.len() {
-            let x = usize::try_from(black_pieces[i].point.x).unwrap();
-            let y = usize::try_from(black_pieces[i].point.y).unwrap();
-
-            squares[x][y] = Some(black_pieces[i].clone());
-            println!("{:?}", &squares[x][y]);
-        }
-
-        // Loop through each white piece, retrieve its board points and place it on the board.
-        for i in 0..white_pieces.len() {
-            let x = usize::try_from(white_pieces[i].point.x).unwrap();
-            let y = usize::try_from(white_pieces[i].point.y).unwrap();
-
-            squares[x][y] = Some(white_pieces[i].clone());
-            println!("{:?}", &squares[x][y]);
-        }
-
-        // Return the squares with the pieces on it.
-        squares
-    }
-
-    pub fn clean(&mut self) {
-        // Initialize the board with 64 None values as empty squares.
-        self.squares = [
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-        ];
-    }
-
-    pub fn update(
-        &mut self,
-        _black_pieces: &[Piece; AMOUNT],
-        _white_pieces: &[Piece; AMOUNT],
-    ) {
-        self.clean();
-
-        self.place(_black_pieces);
-        self.place(_white_pieces);
-    }
-
-    fn place(&mut self, pieces: &[Piece; AMOUNT]) {
-        for i in 0..pieces.len() {
-            let x = usize::try_from(pieces[i].point.x).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
-            let y = usize::try_from(pieces[i].point.y).unwrap(); // Here we are just parsing an (unsinged) integer to usize.
-
-            self.squares[x][y] = Some(pieces[i].clone()); // As array indexes do not support integers we pass usize values in the form of a `x` and `y`.
-        }
+            })
+            .unwrap_or(" ")
     }
 }
