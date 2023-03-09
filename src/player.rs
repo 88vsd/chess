@@ -3,23 +3,17 @@ use crate::piece::{Color, Piece, Point};
 #[derive(Debug, Clone, Copy)]
 pub struct Player {
     pub name: &'static str,
-    pub pieces_yor: Color,
+    pub pieces_color: Color,
 }
 
 impl Player {
-    pub fn new(_name: &'static str, _pieces_yor: Color) -> Player {
-        Player { name: _name, pieces_yor: _pieces_yor }
+    pub fn new(_name: &'static str, _pieces_color: Color) -> Player {
+        Player { name: _name, pieces_color: _pieces_color }
     }
 
-    pub fn move_piece(self, _piece: &mut Piece, _point: Point) {
-        _piece.point.x = _point.x;
-        _piece.point.y = _point.y;
+    pub fn move_piece(&mut self, _piece: &mut Option<Piece>, _point: Point) {
+        let piece = _piece.clone().unwrap();
+
+        *_piece = Some(Piece::new(piece.color, piece.icon, piece.name, _point));
     }
-
-    // Use x notation: Pe4xPd5
-    fn capture() {}
-
-    // 0-0 if from the King side.
-    // 0-0-0 if from the Queen side.
-    fn castle() {}
 }
