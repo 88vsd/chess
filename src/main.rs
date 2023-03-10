@@ -1,7 +1,7 @@
 use crate::{
     chess::Chess,
-    constants::{A4, B4, W_P_A, W_P_B},
-    piece::Color,
+    constants::{Pieces, A4, B4, W_P_A, W_P_B},
+    piece::{Color, Piece},
     player::Player,
 };
 
@@ -12,6 +12,7 @@ pub mod piece;
 pub mod player;
 
 // Implement:
+// Chess notations
 // Capturing
 // Pawn promotion
 // Castling
@@ -25,9 +26,13 @@ fn main() {
 
     chess.board.display(&chess.pieces);
 
-    // chess.pieces[W_P_A] = Some(Piece::new(Color::WHITE, "♙", Name::PAWN, B5));
-    player_one.move_piece(&mut chess.pieces[W_P_A], A4);
-    player_one.move_piece(&mut chess.pieces[W_P_B], B4);
+    let pieces: &Pieces = &chess.get_pieces().clone();
+    player_one.move_piece(&mut chess.pieces[W_P_A], A4, pieces);
+
+    let pieces: &Pieces = &chess.get_pieces().clone();
+    player_one.move_piece(&mut chess.pieces[W_P_B], B4, pieces);
 
     chess.board.display(&chess.pieces);
+
+    println!("{:#?}", chess.get_pieces());
 }

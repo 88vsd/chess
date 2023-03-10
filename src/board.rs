@@ -12,11 +12,11 @@ use crate::{
 pub struct Board;
 
 impl Board {
-    pub fn new(_pieces: &[Option<Piece>; 32]) -> Self {
+    pub fn new(_pieces: &[Piece; 32]) -> Self {
         Board
     }
 
-    pub fn display(&self, _pieces: &[Option<Piece>; 32]) {
+    pub fn display(&self, _pieces: &[Piece; 32]) {
         println!(
             r#"
            a b c d e f g h
@@ -107,18 +107,14 @@ impl Board {
         );
     }
 
-    fn _get_icon(&self, _pieces: &[Option<Piece>; 32], _point: Point) -> &str {
+    fn _get_icon(&self, _pieces: &[Piece; 32], _point: Point) -> &str {
         _pieces
             .iter()
             .find_map(|piece| {
-                if let Some(p) = piece {
-                    if p.point == _point {
-                        Some(p.icon)
-                    } else {
-                        None
-                    }
+                if piece.point == _point {
+                    Some(piece.icon)
                 } else {
-                    Some(" ")
+                    None
                 }
             })
             .unwrap_or(" ")

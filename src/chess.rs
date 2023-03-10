@@ -1,46 +1,38 @@
 use crate::{
     board::Board,
     constants::{
-        A1, A2, A7, A8, B1, B2, B7, B8, B_B_C, B_B_F, B_K_E, B_N_B, B_N_G,
-        B_P_A, B_P_B, B_P_C, B_P_D, B_P_E, B_P_F, B_P_G, B_P_H, B_Q_D, B_R_A,
-        B_R_H, C1, C2, C7, C8, D1, D2, D7, D8, E1, E2, E7, E8, F1, F2, F7, F8,
-        G1, G2, G7, G8, H1, H2, H7, H8, PIECES_TOTAL_AMOUNT, W_B_C, W_B_F,
-        W_K_E, W_N_B, W_N_G, W_P_A, W_P_B, W_P_C, W_P_D, W_P_E, W_P_F, W_P_G,
-        W_P_H, W_Q_D, W_R_A, W_R_H,
+        Pieces, A1, A2, A7, A8, B1, B2, B7, B8, B_B_C, B_B_F, B_K_E, B_N_B,
+        B_N_G, B_P_A, B_P_B, B_P_C, B_P_D, B_P_E, B_P_F, B_P_G, B_P_H, B_Q_D,
+        B_R_A, B_R_H, C1, C2, C7, C8, D1, D2, D7, D8, E1, E2, E7, E8, F1, F2,
+        F7, F8, G1, G2, G7, G8, H1, H2, H7, H8, PIECES_TOTAL_AMOUNT, W_B_C,
+        W_B_F, W_K_E, W_N_B, W_N_G, W_P_A, W_P_B, W_P_C, W_P_D, W_P_E, W_P_F,
+        W_P_G, W_P_H, W_Q_D, W_R_A, W_R_H,
     },
     piece::{Color, Name, Piece},
 };
 
 pub struct Chess {
     pub board: Board,
-    pub captured_pieces: [Option<Piece>; PIECES_TOTAL_AMOUNT],
-    pub pieces: [Option<Piece>; PIECES_TOTAL_AMOUNT],
+    pub pieces: Pieces,
 }
 
 impl Chess {
     pub fn new() -> Self {
-        let pieces = Self::_initialize_pieces();
-        let board = Self::_initialize_board(&pieces);
-        let captured_pieces = Self::_initialize_captured_pieces();
+        let pieces: Pieces = Self::_initialize_pieces();
+        let board: Board = Self::_initialize_board(&pieces);
 
-        Chess { board, captured_pieces, pieces }
+        Chess { board, pieces }
     }
 
-    fn _initialize_board(_pieces: &[Option<Piece>; 32]) -> Board {
+    pub fn get_pieces(&self) -> &Pieces {
+        &self.pieces
+    }
+
+    fn _initialize_board(_pieces: &Pieces) -> Board {
         Board::new(_pieces)
     }
 
-    fn _initialize_captured_pieces() -> [Option<Piece>; PIECES_TOTAL_AMOUNT] {
-        let pieces: [Option<Piece>; PIECES_TOTAL_AMOUNT] = [
-            None, None, None, None, None, None, None, None, None, None, None,
-            None, None, None, None, None, None, None, None, None, None, None,
-            None, None, None, None, None, None, None, None, None, None,
-        ];
-
-        pieces
-    }
-
-    fn _initialize_pieces() -> [Option<Piece>; PIECES_TOTAL_AMOUNT] {
+    fn _initialize_pieces() -> Pieces {
         let mut pieces: [Option<Piece>; PIECES_TOTAL_AMOUNT] = [
             None, None, None, None, None, None, None, None, None, None, None,
             None, None, None, None, None, None, None, None, None, None, None,
@@ -82,6 +74,14 @@ impl Chess {
         pieces[W_N_G] = Some(Piece::new(Color::WHITE, "♘", Name::KNIGHT, G1));
         pieces[W_R_H] = Some(Piece::new(Color::WHITE, "♖", Name::ROOK, H1));
 
-        pieces
+        // Create a new array of Pieces using map() and unwrap()
+        let result: Pieces = pieces
+            .iter()
+            .map(|piece| piece.clone().unwrap()) // TODO: avoid clone()
+            .collect::<Vec<Piece>>()
+            .try_into()
+            .unwrap();
+
+        return result;
     }
 }
