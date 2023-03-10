@@ -1,4 +1,4 @@
-use crate::piece::Point;
+use crate::piece::{Piece, Point};
 
 pub const COLS: usize = 8;
 pub const ROWS: usize = 8;
@@ -132,3 +132,5 @@ pub const W_K_E: usize = 28;
 pub const W_B_F: usize = 29;
 pub const W_N_G: usize = 30;
 pub const W_R_H: usize = 31;
+
+pub type Pieces = [Piece; PIECES_TOTAL_AMOUNT];
