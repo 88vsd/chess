@@ -22,7 +22,7 @@ fn main() {
     println!("Hello, world!");
 
     let mut chess = Chess::new();
-    let mut player_one = Player::new("Alice", Color::BLACK);
+    let mut player_one = Player::new("Alice", Color::WHITE);
 
     chess.board.display(&chess.pieces);
 
