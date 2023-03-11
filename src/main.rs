@@ -1,7 +1,7 @@
 use crate::{
     chess::Chess,
     constants::{Pieces, A4, B4, W_P_A, W_P_B},
-    piece::{Color, Piece},
+    piece::Color,
     player::Player,
 };
 
@@ -10,14 +10,18 @@ pub mod chess;
 pub mod constants;
 pub mod piece;
 pub mod player;
+pub mod point;
 
 // Implement:
+// ✅ Allowable moves for each piece
+// ✅ Display chessboard based on each piece's location
 // Chess notations
 // Capturing
 // Pawn promotion
 // Castling
 // Check
 // Checkmate
+// While loop to run the game
 fn main() {
     println!("Hello, world!");
 

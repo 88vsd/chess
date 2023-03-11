@@ -2,7 +2,8 @@ use std::io;
 
 use crate::{
     constants::Pieces,
-    piece::{Color, Piece, Point},
+    piece::{Color, Piece},
+    point::Point,
 };
 
 #[derive(Debug, Clone, Copy)]

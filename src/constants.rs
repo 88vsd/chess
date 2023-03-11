@@ -1,4 +1,4 @@
-use crate::piece::{Piece, Point};
+use crate::{piece::Piece, point::Point};
 
 pub const COLS: usize = 8;
 pub const ROWS: usize = 8;
