@@ -1,6 +1,7 @@
 use crate::{
     chess::Chess,
     constants::{Pieces, A4, B4, W_P_A, W_P_B},
+    notation::Notation,
     piece::Color,
     player::Player,
 };
@@ -8,6 +9,7 @@ use crate::{
 pub mod board;
 pub mod chess;
 pub mod constants;
+pub mod notation;
 pub mod piece;
 pub mod player;
 pub mod point;
@@ -39,5 +41,10 @@ fn main() {
 
     chess.board.display(&chess.pieces);
 
-    println!("{:#?}", chess.get_pieces());
+    let notation = Notation::new("NE4xF6+", Color::BLACK);
+
+    println!("{:#?}", notation.1);
+    println!("{:#?}", notation.4);
+
+    // println!("{:#?}", chess.get_pieces());
 }
