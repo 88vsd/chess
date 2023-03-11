@@ -29,17 +29,19 @@ impl Player {
 
         // let user_input = user_input.trim();
 
-        let mut piece = _piece.clone();
-        let available_moves = piece.moves(_pieces);
+        _piece.set_point(_point, _pieces);
 
-        if available_moves.contains(&_point) {
-            if !piece.is_developed() {
-                piece.set_is_developed();
-            }
+        // let mut piece = _piece.clone();
+        // let available_moves = piece.moves(_pieces);
 
-            *_piece = Piece::new(piece.color, piece.icon, piece.name, _point);
-        } else {
-            panic!("Provided move is not allowable!");
-        }
+        // if available_moves.contains(&_point) {
+        //     if !piece.is_developed() {
+        //         piece.set_is_developed();
+        //     }
+
+        //     *_piece = Piece::new(piece.color, piece.icon, piece.name, _point);
+        // } else {
+        //     panic!("Provided move is not allowable!");
+        // }
     }
 }

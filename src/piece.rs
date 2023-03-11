@@ -48,6 +48,20 @@ impl Piece {
         }
     }
 
+    pub fn set_point(&mut self, _point: Point, _pieces: &Pieces) {
+        let allowable_moves = self.moves(_pieces);
+
+        if allowable_moves.contains(&_point) {
+            if !self.is_developed() {
+                self.set_is_developed();
+            }
+
+            self.point = _point;
+        } else {
+            println!("You can't move to {}", Point::get_str(_point));
+        }
+    }
+
     pub fn moves(&mut self, _pieces: &Pieces) -> &Vec<Point> {
         match self.name {
             Name::PAWN => self._get_pawn_valid_moves(_pieces),
@@ -62,6 +76,30 @@ impl Piece {
     pub fn get(_point: Point, _pieces: &Pieces) -> Option<&Piece> {
         // _pieces.iter().find(|piece| piece.point == point)
         _pieces.iter().find(|piece| piece.point == _point).map(|piece| piece)
+    }
+
+    pub fn get_icon(_piece_letter: &str, _piece_color: Color) -> &str {
+        if _piece_color == Color::BLACK {
+            match _piece_letter {
+                "K" => "♚",
+                "Q" => "♛",
+                "R" => "♜",
+                "B" => "♝",
+                "N" => "♞",
+                "P" => "♟",
+                _ => panic!("Invalid piece"),
+            }
+        } else {
+            match _piece_letter {
+                "K" => "♔",
+                "Q" => "♕",
+                "R" => "♖",
+                "B" => "♗",
+                "N" => "♘",
+                "P" => "♙",
+                _ => panic!("Invalid piece"),
+            }
+        }
     }
 
     pub fn is_at(_point: Point, _pieces: &Pieces) -> bool {
