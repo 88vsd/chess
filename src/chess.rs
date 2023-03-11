@@ -14,6 +14,7 @@ use crate::{
 pub struct Chess {
     pub board: Board,
     pub pieces: Pieces,
+    pub is_checkmate: bool,
 }
 
 impl Chess {
@@ -21,11 +22,15 @@ impl Chess {
         let pieces: Pieces = Self::_initialize_pieces();
         let board: Board = Self::_initialize_board(&pieces);
 
-        Chess { board, pieces }
+        Chess { board, pieces, is_checkmate: false }
     }
 
     pub fn get_pieces(&self) -> &Pieces {
         &self.pieces
+    }
+
+    pub fn is_checkmate(&self) -> bool {
+        self.is_checkmate
     }
 
     fn _initialize_board(_pieces: &Pieces) -> Board {
