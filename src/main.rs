@@ -22,6 +22,7 @@ pub mod point;
 // Check
 // Checkmate
 // While loop to run the game
+// Turn chessboard after each move around for player
 fn main() {
     println!("Hello, world!");
 
