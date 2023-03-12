@@ -1,18 +1,17 @@
 use crate::{
-    constants::E4,
     piece::{Color, Piece},
     point::Point,
 };
 
-pub struct Notation<'a>(
-    pub &'a str,
-    pub Point,
-    bool,
-    bool,
-    pub Point,
-    bool,
-    bool,
-);
+pub struct Notation<'a> {
+    pub piece_icon: &'a str,
+    pub starting_point: Point,
+    pub is_accupying_move: bool,
+    pub is_capturing_move: bool,
+    pub ending_point: Point,
+    pub is_check_move: bool,
+    pub is_checkmate_move: bool,
+}
 
 impl Notation<'_> {
     pub fn new(_str_value: &str, _piece_color: Color) -> Notation {
@@ -25,21 +24,21 @@ impl Notation<'_> {
         let is_checkmate_move = _str_value.contains("#");
         let is_check_move = _str_value.contains("+");
 
-        let starting_point_str = &_str_value[1..2];
-        let starting_point = Point::get("E4");
+        let starting_point_str = &_str_value[1..3];
+        let starting_point = Point::get(starting_point_str);
 
         let ending_point_str: &str;
         let ending_point: Point;
 
         if is_capturing_move {
-            ending_point_str = &_str_value[5..6];
-            ending_point = Point::get("F6");
+            ending_point_str = &_str_value[4..6];
+            ending_point = Point::get(ending_point_str);
         } else {
-            ending_point_str = &_str_value[4..5];
-            ending_point = Point::get("F6");
+            ending_point_str = &_str_value[3..5];
+            ending_point = Point::get(ending_point_str);
         }
 
-        Notation(
+        Notation {
             piece_icon,
             starting_point,
             is_accupying_move,
@@ -47,6 +46,6 @@ impl Notation<'_> {
             ending_point,
             is_check_move,
             is_checkmate_move,
-        )
+        }
     }
 }
