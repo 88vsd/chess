@@ -33,18 +33,12 @@ fn main() {
 
     chess.board.display(&chess.pieces);
 
-    let pieces: &Pieces = &chess.get_pieces().clone();
-    player_one.move_piece(&mut chess.pieces[W_P_A], A4, pieces);
-
-    let pieces: &Pieces = &chess.get_pieces().clone();
-    player_one.move_piece(&mut chess.pieces[W_P_B], B4, pieces);
+    player_one.move_piece("PE7E5", &mut chess);
+    player_one.move_piece("PA7A5", &mut chess);
+    player_one.move_piece("PB7B5", &mut chess);
+    player_one.move_piece("NB8A6", &mut chess);
 
     chess.board.display(&chess.pieces);
-
-    let notation = Notation::new("NE4xF6+", Color::BLACK);
-
-    println!("{:#?}", notation.1);
-    println!("{:#?}", notation.4);
 
     // println!("{:#?}", chess.get_pieces());
 }

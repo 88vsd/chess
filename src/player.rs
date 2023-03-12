@@ -1,9 +1,7 @@
 use std::io;
 
 use crate::{
-    constants::Pieces,
-    piece::{Color, Piece},
-    point::Point,
+    chess::Chess, constants::Pieces, notation::Notation, piece::Color,
 };
 
 #[derive(Debug, Clone, Copy)]
@@ -17,31 +15,15 @@ impl Player {
         Player { name: _name, pieces_color: _pieces_color }
     }
 
-    pub fn move_piece(
-        &mut self,
-        _piece: &mut Piece,
-        _point: Point,
-        _pieces: &Pieces,
-    ) {
+    pub fn move_piece(&mut self, _str_notation: &str, _chess: &mut Chess) {
         // let mut user_input = String::new();
-
         // io::stdin().read_line(&mut user_input).expect("Failed to read line.");
-
         // let user_input = user_input.trim();
 
-        _piece.set_point(_point, _pieces);
+        let notation = Notation::new(_str_notation, self.pieces_color);
+        let pieces: &Pieces = &_chess.get_pieces().clone();
+        let piece = &mut _chess.get_piece(notation.starting_point);
 
-        // let mut piece = _piece.clone();
-        // let available_moves = piece.moves(_pieces);
-
-        // if available_moves.contains(&_point) {
-        //     if !piece.is_developed() {
-        //         piece.set_is_developed();
-        //     }
-
-        //     *_piece = Piece::new(piece.color, piece.icon, piece.name, _point);
-        // } else {
-        //     panic!("Provided move is not allowable!");
-        // }
+        piece.set_point(notation.ending_point, pieces);
     }
 }
