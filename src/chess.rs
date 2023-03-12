@@ -9,6 +9,7 @@ use crate::{
         W_P_G, W_P_H, W_Q_D, W_R_A, W_R_H,
     },
     piece::{Color, Name, Piece},
+    point::Point,
 };
 
 pub struct Chess {
@@ -23,6 +24,14 @@ impl Chess {
         let board: Board = Self::_initialize_board(&pieces);
 
         Chess { board, pieces, is_checkmate: false }
+    }
+
+    pub fn get_piece(&mut self, _point: Point) -> &mut Piece {
+        self.pieces
+            .iter_mut()
+            .find(|piece| piece.point == _point)
+            .map(|piece| piece)
+            .unwrap()
     }
 
     pub fn get_pieces(&self) -> &Pieces {
