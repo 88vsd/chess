@@ -17,7 +17,7 @@ pub mod point;
 // Implement:
 // ✅ Allowable moves for each piece
 // ✅ Display chessboard based on each piece's location
-// Chess notations
+// ✅ Chess notations
 // Capturing
 // Pawn promotion
 // Castling
@@ -30,15 +30,19 @@ fn main() {
 
     let mut chess = Chess::new();
     let mut player_one = Player::new("Alice", Color::WHITE);
+    let mut player_two = Player::new("Bob", Color::BLACK);
 
-    chess.board.display(&chess.pieces);
+    let is_playing = true;
 
-    player_one.move_piece("PE7E5", &mut chess);
-    player_one.move_piece("PA7A5", &mut chess);
-    player_one.move_piece("PB7B5", &mut chess);
-    player_one.move_piece("NB8A6", &mut chess);
+    while is_playing {
+        chess.board.display(&chess.pieces);
 
-    chess.board.display(&chess.pieces);
+        player_one.move_piece(&mut chess);
 
-    // println!("{:#?}", chess.get_pieces());
+        chess.board.display(&chess.pieces);
+
+        player_two.move_piece(&mut chess);
+
+        // println!("{:#?}", chess.get_pieces());
+    }
 }
