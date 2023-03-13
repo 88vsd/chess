@@ -3,8 +3,8 @@ use crate::{
     point::Point,
 };
 
-pub struct Notation<'a> {
-    pub piece_icon: &'a str,
+pub struct Notation {
+    pub piece_icon: String,
     pub starting_point: Point,
     pub is_accupying_move: bool,
     pub is_capturing_move: bool,
@@ -13,11 +13,12 @@ pub struct Notation<'a> {
     pub is_checkmate_move: bool,
 }
 
-impl Notation<'_> {
-    pub fn new(_str_value: &str, _piece_color: Color) -> Notation {
+impl Notation {
+    pub fn new(_str_value: String, _piece_color: Color) -> Notation {
         let piece_letter = &_str_value[0..1];
 
-        let piece_icon = Piece::get_icon(piece_letter, _piece_color);
+        let piece_icon =
+            Piece::get_icon(piece_letter, _piece_color).to_string();
 
         let is_accupying_move = !_str_value.contains("x");
         let is_capturing_move = _str_value.contains("x");
