@@ -1,10 +1,4 @@
-use crate::{
-    chess::Chess,
-    constants::{Pieces, A4, B4, W_P_A, W_P_B},
-    notation::Notation,
-    piece::Color,
-    player::Player,
-};
+use crate::{chess::Chess, piece::Color, player::Player};
 
 pub mod board;
 pub mod chess;
@@ -17,29 +11,28 @@ pub mod point;
 // Implement:
 // ✅ Allowable moves for each piece
 // ✅ Display chessboard based on each piece's location
-// ✅ Chess notations
+// ✅ Chess notations (TODO: add castling)
 // Capturing
 // Pawn promotion
 // Castling
 // Check
 // Checkmate
-// While loop to run the game
-// Turn chessboard after each move around for player
+// ✅ While loop to run the game
+// ✅ Display 2 perspectives of the chessboard
 fn main() {
     println!("Hello, world!");
 
     let mut chess = Chess::new();
+
     let mut player_one = Player::new("Alice", Color::WHITE);
     let mut player_two = Player::new("Bob", Color::BLACK);
 
-    let is_playing = true;
-
-    while is_playing {
-        chess.board.display(&chess.pieces);
+    while chess.is_playing() {
+        chess.board.display(&chess.get_pieces());
 
         player_one.move_piece(&mut chess);
 
-        chess.board.display(&chess.pieces);
+        chess.board.display(&chess.get_pieces());
 
         player_two.move_piece(&mut chess);
 

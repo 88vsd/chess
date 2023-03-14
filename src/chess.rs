@@ -38,6 +38,10 @@ impl Chess {
         &self.pieces
     }
 
+    pub fn is_playing(&self) -> bool {
+        self.is_checkmate == false
+    }
+
     pub fn is_checkmate(&self) -> bool {
         self.is_checkmate
     }
