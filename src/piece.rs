@@ -50,6 +50,7 @@ impl Piece {
 
     pub fn set_point(&mut self, _point: Point, _pieces: &Pieces) {
         let allowable_moves = self.moves(_pieces);
+        dbg!("{#:?}", allowable_moves);
 
         if allowable_moves.contains(&_point) {
             if !self.is_developed() {
@@ -60,6 +61,10 @@ impl Piece {
         } else {
             println!("You can't move to {}", Point::get_str(_point));
         }
+    }
+
+    pub fn set_is_captured(&mut self) {
+        self.is_captured = true;
     }
 
     pub fn moves(&mut self, _pieces: &Pieces) -> &Vec<Point> {
