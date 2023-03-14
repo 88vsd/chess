@@ -113,7 +113,7 @@ impl Board {
         _pieces
             .iter()
             .find_map(|piece| {
-                if piece.point == _point {
+                if piece.point == _point && !piece.is_captured {
                     Some(piece.icon)
                 } else {
                     None
