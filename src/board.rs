@@ -19,163 +19,90 @@ impl Board {
 
     pub fn display(&self, _pieces: &[Piece; PIECES_TOTAL_AMOUNT]) {
         // Row 8
-        let wa8 = self._get_icon(_pieces, A8);
-        let wb8 = self._get_icon(_pieces, B8);
-        let wc8 = self._get_icon(_pieces, C8);
-        let wd8 = self._get_icon(_pieces, D8);
-        let we8 = self._get_icon(_pieces, E8);
-        let wf8 = self._get_icon(_pieces, F8);
-        let wg8 = self._get_icon(_pieces, G8);
-        let wh8 = self._get_icon(_pieces, H8);
+        let a8 = self._get_icon(_pieces, A8);
+        let b8 = self._get_icon(_pieces, B8);
+        let c8 = self._get_icon(_pieces, C8);
+        let d8 = self._get_icon(_pieces, D8);
+        let e8 = self._get_icon(_pieces, E8);
+        let f8 = self._get_icon(_pieces, F8);
+        let g8 = self._get_icon(_pieces, G8);
+        let h8 = self._get_icon(_pieces, H8);
         // Row 7
-        let wa7 = self._get_icon(_pieces, A7);
-        let wb7 = self._get_icon(_pieces, B7);
-        let wc7 = self._get_icon(_pieces, C7);
-        let wd7 = self._get_icon(_pieces, D7);
-        let we7 = self._get_icon(_pieces, E7);
-        let wf7 = self._get_icon(_pieces, F7);
-        let wg7 = self._get_icon(_pieces, G7);
-        let wh7 = self._get_icon(_pieces, H7);
+        let a7 = self._get_icon(_pieces, A7);
+        let b7 = self._get_icon(_pieces, B7);
+        let c7 = self._get_icon(_pieces, C7);
+        let d7 = self._get_icon(_pieces, D7);
+        let e7 = self._get_icon(_pieces, E7);
+        let f7 = self._get_icon(_pieces, F7);
+        let g7 = self._get_icon(_pieces, G7);
+        let h7 = self._get_icon(_pieces, H7);
         // Row 6
-        let wa6 = self._get_icon(_pieces, A6);
-        let wb6 = self._get_icon(_pieces, B6);
-        let wc6 = self._get_icon(_pieces, C6);
-        let wd6 = self._get_icon(_pieces, D6);
-        let we6 = self._get_icon(_pieces, E6);
-        let wf6 = self._get_icon(_pieces, F6);
-        let wg6 = self._get_icon(_pieces, G6);
-        let wh6 = self._get_icon(_pieces, H6);
+        let a6 = self._get_icon(_pieces, A6);
+        let b6 = self._get_icon(_pieces, B6);
+        let c6 = self._get_icon(_pieces, C6);
+        let d6 = self._get_icon(_pieces, D6);
+        let e6 = self._get_icon(_pieces, E6);
+        let f6 = self._get_icon(_pieces, F6);
+        let g6 = self._get_icon(_pieces, G6);
+        let h6 = self._get_icon(_pieces, H6);
         // Row 5
-        let wa5 = self._get_icon(_pieces, A5);
-        let wb5 = self._get_icon(_pieces, B5);
-        let wc5 = self._get_icon(_pieces, C5);
-        let wd5 = self._get_icon(_pieces, D5);
-        let we5 = self._get_icon(_pieces, E5);
-        let wf5 = self._get_icon(_pieces, F5);
-        let wg5 = self._get_icon(_pieces, G5);
-        let wh5 = self._get_icon(_pieces, H5);
+        let a5 = self._get_icon(_pieces, A5);
+        let b5 = self._get_icon(_pieces, B5);
+        let c5 = self._get_icon(_pieces, C5);
+        let d5 = self._get_icon(_pieces, D5);
+        let e5 = self._get_icon(_pieces, E5);
+        let f5 = self._get_icon(_pieces, F5);
+        let g5 = self._get_icon(_pieces, G5);
+        let h5 = self._get_icon(_pieces, H5);
         // Row 4
-        let wa4 = self._get_icon(_pieces, A4);
-        let wb4 = self._get_icon(_pieces, B4);
-        let wc4 = self._get_icon(_pieces, C4);
-        let wd4 = self._get_icon(_pieces, D4);
-        let we4 = self._get_icon(_pieces, E4);
-        let wf4 = self._get_icon(_pieces, F4);
-        let wg4 = self._get_icon(_pieces, G4);
-        let wh4 = self._get_icon(_pieces, H4);
+        let a4 = self._get_icon(_pieces, A4);
+        let b4 = self._get_icon(_pieces, B4);
+        let c4 = self._get_icon(_pieces, C4);
+        let d4 = self._get_icon(_pieces, D4);
+        let e4 = self._get_icon(_pieces, E4);
+        let f4 = self._get_icon(_pieces, F4);
+        let g4 = self._get_icon(_pieces, G4);
+        let h4 = self._get_icon(_pieces, H4);
         // Row 3
-        let wa3 = self._get_icon(_pieces, A3);
-        let wb3 = self._get_icon(_pieces, B3);
-        let wc3 = self._get_icon(_pieces, C3);
-        let wd3 = self._get_icon(_pieces, D3);
-        let we3 = self._get_icon(_pieces, E3);
-        let wf3 = self._get_icon(_pieces, F3);
-        let wg3 = self._get_icon(_pieces, G3);
-        let wh3 = self._get_icon(_pieces, H3);
+        let a3 = self._get_icon(_pieces, A3);
+        let b3 = self._get_icon(_pieces, B3);
+        let c3 = self._get_icon(_pieces, C3);
+        let d3 = self._get_icon(_pieces, D3);
+        let e3 = self._get_icon(_pieces, E3);
+        let f3 = self._get_icon(_pieces, F3);
+        let g3 = self._get_icon(_pieces, G3);
+        let h3 = self._get_icon(_pieces, H3);
         // Row 2
-        let wa2 = self._get_icon(_pieces, A2);
-        let wb2 = self._get_icon(_pieces, B2);
-        let wc2 = self._get_icon(_pieces, C2);
-        let wd2 = self._get_icon(_pieces, D2);
-        let we2 = self._get_icon(_pieces, E2);
-        let wf2 = self._get_icon(_pieces, F2);
-        let wg2 = self._get_icon(_pieces, G2);
-        let wh2 = self._get_icon(_pieces, H2);
+        let a2 = self._get_icon(_pieces, A2);
+        let b2 = self._get_icon(_pieces, B2);
+        let c2 = self._get_icon(_pieces, C2);
+        let d2 = self._get_icon(_pieces, D2);
+        let e2 = self._get_icon(_pieces, E2);
+        let f2 = self._get_icon(_pieces, F2);
+        let g2 = self._get_icon(_pieces, G2);
+        let h2 = self._get_icon(_pieces, H2);
         // Row 1
-        let wa1 = self._get_icon(_pieces, A1);
-        let wb1 = self._get_icon(_pieces, B1);
-        let wc1 = self._get_icon(_pieces, C1);
-        let wd1 = self._get_icon(_pieces, D1);
-        let we1 = self._get_icon(_pieces, E1);
-        let wf1 = self._get_icon(_pieces, F1);
-        let wg1 = self._get_icon(_pieces, G1);
-        let wh1 = self._get_icon(_pieces, H1);
-
-        // Row 1
-        let ba1 = self._get_icon(_pieces, A1);
-        let bb1 = self._get_icon(_pieces, B1);
-        let bc1 = self._get_icon(_pieces, C1);
-        let bd1 = self._get_icon(_pieces, D1);
-        let be1 = self._get_icon(_pieces, E1);
-        let bf1 = self._get_icon(_pieces, F1);
-        let bg1 = self._get_icon(_pieces, G1);
-        let bh1 = self._get_icon(_pieces, H1);
-        // Row 2
-        let ba2 = self._get_icon(_pieces, A2);
-        let bb2 = self._get_icon(_pieces, B2);
-        let bc2 = self._get_icon(_pieces, C2);
-        let bd2 = self._get_icon(_pieces, D2);
-        let be2 = self._get_icon(_pieces, E2);
-        let bf2 = self._get_icon(_pieces, F2);
-        let bg2 = self._get_icon(_pieces, G2);
-        let bh2 = self._get_icon(_pieces, H2);
-        // Row 3
-        let ba3 = self._get_icon(_pieces, A3);
-        let bb3 = self._get_icon(_pieces, B3);
-        let bc3 = self._get_icon(_pieces, C3);
-        let bd3 = self._get_icon(_pieces, D3);
-        let be3 = self._get_icon(_pieces, E3);
-        let bf3 = self._get_icon(_pieces, F3);
-        let bg3 = self._get_icon(_pieces, G3);
-        let bh3 = self._get_icon(_pieces, H3);
-        // Row 4
-        let ba4 = self._get_icon(_pieces, A4);
-        let bb4 = self._get_icon(_pieces, B4);
-        let bc4 = self._get_icon(_pieces, C4);
-        let bd4 = self._get_icon(_pieces, D4);
-        let be4 = self._get_icon(_pieces, E4);
-        let bf4 = self._get_icon(_pieces, F4);
-        let bg4 = self._get_icon(_pieces, G4);
-        let bh4 = self._get_icon(_pieces, H4);
-        // Row 5
-        let ba5 = self._get_icon(_pieces, A5);
-        let bb5 = self._get_icon(_pieces, B5);
-        let bc5 = self._get_icon(_pieces, C5);
-        let bd5 = self._get_icon(_pieces, D5);
-        let be5 = self._get_icon(_pieces, E5);
-        let bf5 = self._get_icon(_pieces, F5);
-        let bg5 = self._get_icon(_pieces, G5);
-        let bh5 = self._get_icon(_pieces, H5);
-        // Row 6
-        let ba6 = self._get_icon(_pieces, A6);
-        let bb6 = self._get_icon(_pieces, B6);
-        let bc6 = self._get_icon(_pieces, C6);
-        let bd6 = self._get_icon(_pieces, D6);
-        let be6 = self._get_icon(_pieces, E6);
-        let bf6 = self._get_icon(_pieces, F6);
-        let bg6 = self._get_icon(_pieces, G6);
-        let bh6 = self._get_icon(_pieces, H6);
-        // Row 7
-        let ba7 = self._get_icon(_pieces, A7);
-        let bb7 = self._get_icon(_pieces, B7);
-        let bc7 = self._get_icon(_pieces, C7);
-        let bd7 = self._get_icon(_pieces, D7);
-        let be7 = self._get_icon(_pieces, E7);
-        let bf7 = self._get_icon(_pieces, F7);
-        let bg7 = self._get_icon(_pieces, G7);
-        let bh7 = self._get_icon(_pieces, H7);
-        // Row 8
-        let ba8 = self._get_icon(_pieces, A8);
-        let bb8 = self._get_icon(_pieces, B8);
-        let bc8 = self._get_icon(_pieces, C8);
-        let bd8 = self._get_icon(_pieces, D8);
-        let be8 = self._get_icon(_pieces, E8);
-        let bf8 = self._get_icon(_pieces, F8);
-        let bg8 = self._get_icon(_pieces, G8);
-        let bh8 = self._get_icon(_pieces, H8);
+        let a1 = self._get_icon(_pieces, A1);
+        let b1 = self._get_icon(_pieces, B1);
+        let c1 = self._get_icon(_pieces, C1);
+        let d1 = self._get_icon(_pieces, D1);
+        let e1 = self._get_icon(_pieces, E1);
+        let f1 = self._get_icon(_pieces, F1);
+        let g1 = self._get_icon(_pieces, G1);
+        let h1 = self._get_icon(_pieces, H1);
 
         println!(
             r#"
            a b c d e f g h                 h g f e d c b a
 
-        8 |{wa8}|{wb8}|{wc8}|{wd8}|{we8}|{wf8}|{wg8}|{wh8}| 8           1 |{bh1}|{bg1}|{bf1}|{be1}|{bd1}|{bc1}|{bb1}|{ba1}| 1
-        7 |{wa7}|{wb7}|{wc7}|{wd7}|{we7}|{wf7}|{wg7}|{wh7}| 7           2 |{bh2}|{bg2}|{bf2}|{be2}|{bd2}|{bc2}|{bb2}|{ba2}| 2
-        6 |{wa6}|{wb6}|{wc6}|{wd6}|{we6}|{wf6}|{wg6}|{wh6}| 6           3 |{bh3}|{bg3}|{bf3}|{be3}|{bd3}|{bc3}|{bb3}|{ba3}| 3
-        5 |{wa5}|{wb5}|{wc5}|{wd5}|{we5}|{wf5}|{wg5}|{wh5}| 5           4 |{bh4}|{bg4}|{bf4}|{be4}|{bd4}|{bc4}|{bb4}|{ba4}| 4
-        4 |{wa4}|{wb4}|{wc4}|{wd4}|{we4}|{wf4}|{wg4}|{wh4}| 4           5 |{bh5}|{bg5}|{bf5}|{be5}|{bd5}|{bc5}|{bb5}|{ba5}| 5
-        3 |{wa3}|{wb3}|{wc3}|{wd3}|{we3}|{wf3}|{wg3}|{wh3}| 3           6 |{bh6}|{bg6}|{bf6}|{be6}|{bd6}|{bc6}|{bb6}|{ba6}| 6
-        2 |{wa2}|{wb2}|{wc2}|{wd2}|{we2}|{wf2}|{wg2}|{wh2}| 2           7 |{bh7}|{bg7}|{bf7}|{be7}|{bd7}|{bc7}|{bb7}|{ba7}| 7
-        1 |{wa1}|{wb1}|{wc1}|{wd1}|{we1}|{wf1}|{wg1}|{wh1}| 1           8 |{bh8}|{bg8}|{bf8}|{be8}|{bd8}|{bc8}|{bb8}|{ba8}| 8
+        8 |{a8}|{b8}|{c8}|{d8}|{e8}|{f8}|{g8}|{h8}| 8           1 |{h1}|{g1}|{f1}|{e1}|{d1}|{c1}|{b1}|{a1}| 1
+        7 |{a7}|{b7}|{c7}|{d7}|{e7}|{f7}|{g7}|{h7}| 7           2 |{h2}|{g2}|{f2}|{e2}|{d2}|{c2}|{b2}|{a2}| 2
+        6 |{a6}|{b6}|{c6}|{d6}|{e6}|{f6}|{g6}|{h6}| 6           3 |{h3}|{g3}|{f3}|{e3}|{d3}|{c3}|{b3}|{a3}| 3
+        5 |{a5}|{b5}|{c5}|{d5}|{e5}|{f5}|{g5}|{h5}| 5           4 |{h4}|{g4}|{f4}|{e4}|{d4}|{c4}|{b4}|{a4}| 4
+        4 |{a4}|{b4}|{c4}|{d4}|{e4}|{f4}|{g4}|{h4}| 4           5 |{h5}|{g5}|{f5}|{e5}|{d5}|{c5}|{b5}|{a5}| 5
+        3 |{a3}|{b3}|{c3}|{d3}|{e3}|{f3}|{g3}|{h3}| 3           6 |{h6}|{g6}|{f6}|{e6}|{d6}|{c6}|{b6}|{a6}| 6
+        2 |{a2}|{b2}|{c2}|{d2}|{e2}|{f2}|{g2}|{h2}| 2           7 |{h7}|{g7}|{f7}|{e7}|{d7}|{c7}|{b7}|{a7}| 7
+        1 |{a1}|{b1}|{c1}|{d1}|{e1}|{f1}|{g1}|{h1}| 1           8 |{h8}|{g8}|{f8}|{e8}|{d8}|{c8}|{b8}|{a8}| 8
 
            a b c d e f g h                 h g f e d c b a
     "#
